@@ -31,3 +31,50 @@ export const bofaPremiumRewardsElite: CardTemplate = {
     },
   ],
 };
+
+// Rebranded from Alaska Airlines Visa Signature to Atmos Rewards in 2025.
+export const bofaAlaskaAscent: CardTemplate = {
+  id: "bofa-alaska-ascent",
+  issuer: "Other",
+  name: "Atmos Ascent",
+  annualFeeCents: 9500,
+  qualitativePerks: [
+    "Free checked bag + preferred boarding for up to 6 companions (Alaska / Hawaiian)",
+    "$99 Companion Fare each anniversary after $6k calendar-year spend",
+    "3x on Alaska / Hawaiian airfare",
+    "Transfer Atmos points to Marriott / IHG / Wyndham / Preferred / Shangri-La",
+    "No foreign transaction fees",
+  ],
+  benefits: [
+    {
+      id: "lounge-plus-credit",
+      name: "Alaska Lounge+ Membership Credit",
+      amountCents: 10000,
+      period: { type: "calendar-year" },
+      category: "travel",
+      notes: "$100/yr toward an Alaska Lounge+ membership purchased with the card",
+    },
+  ],
+};
+
+// Premium Alaska card launched 2025; mostly status / lounge / airline perks,
+// no recurring dollar credits beyond the 4-year Global Entry fee.
+export const bofaAlaskaSummit: CardTemplate = {
+  id: "bofa-alaska-summit",
+  issuer: "Other",
+  name: "Atmos Summit",
+  annualFeeCents: 39500,
+  qualitativePerks: [
+    "Free checked bag + preferred boarding for up to 6 companions (Alaska / Hawaiian)",
+    "2 Alaska Lounge passes per quarter (8 / yr)",
+    "2 Alaska Wi-Fi passes per quarter",
+    "Global Companion Award on award bookings",
+    "Free same-day confirmed flight changes + free same-day standby on Alaska",
+    "Automatic $50 voucher on Alaska delays 2+ hr or cancellations within 24 hr",
+    "Global Entry / TSA PreCheck credit ($120 every 4 yr)",
+    "10,000 status points per anniversary + 1 status point per $2 spent",
+    "Transfer Atmos points to Marriott / IHG / Wyndham / Preferred / Shangri-La",
+    "No foreign transaction fees",
+  ],
+  benefits: [],
+};
