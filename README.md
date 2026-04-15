@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Credit Card Benefit Tracker
 
-## Getting Started
+A personal credit card benefit tracker for managing annual reimbursement credits and renewal decisions. Built for self + family use — single-user per browser, no accounts, no cloud.
 
-First, run the development server:
+## What it does
+
+Track recurring credits (e.g. Amex Platinum's $300 semi-annual hotel credit, Sapphire Reserve's $150 dining credit, Hilton Aspire free-night certs) so you can see at a glance:
+
+- How much value you've actually pulled from each card this year
+- Whether the card is "earning back" its annual fee
+- Which credits expire soon and you haven't used yet
+
+Renewal decisions get easier when the math is in front of you.
+
+## Stack
+
+- **Next.js 16** (App Router) + **TypeScript** + **Tailwind v4**
+- **Zustand** with `persist` middleware (data lives in `localStorage`)
+- **OpenNext** adapter for Cloudflare Workers deployment
+- No backend — everything stays in the browser
+
+## Built-in card templates
+
+19 templates as of April 2026, kept in sync with the latest issuer refreshes:
+
+| Issuer | Cards |
+| --- | --- |
+| Amex | Platinum, Gold, Green, Hilton Aspire, Marriott Bonvoy Brilliant, Delta SkyMiles Reserve, Business Platinum |
+| Chase | Sapphire Reserve, Sapphire Preferred, World of Hyatt, IHG One Rewards Premier, Ritz-Carlton |
+| Citi | Strata Premier, Strata Elite, AAdvantage Executive |
+| Capital One | Venture X |
+| BofA | Premium Rewards Elite, Atmos Ascent, Atmos Summit |
+
+Templates reflect 2025–2026 refreshes — Amex Platinum / Business Platinum ($895 fees, ChatGPT / Hilton credits), Chase Sapphire Reserve June 2025 overhaul ($795, The Edit, dining + StubHub credits, Peloton, Apple TV+/Music), and the Citi / BofA Atmos rebrands.
+
+## Architecture
+
+- `src/lib/types.ts` — domain types (`UserCard`, `BenefitTemplate`, `BenefitUsage`, `BenefitPeriod`)
+- `src/lib/store.ts` — Zustand store, persisted under key `credit-card-tracker`
+- `src/lib/periods.ts` — period window math (`monthly`, `quarterly`, `semi-annual`, `calendar-year`, `cardmember-year`)
+- `src/lib/value.ts` — derived `benefitStatuses` and `cardAnnualValue`
+- `src/lib/templates/` — built-in card templates, edited in place when issuers refresh
+- `src/app/` — pages: `/` dashboard, `/cards/new`, `/cards/[id]`, `/settings`
+- `src/components/` — `CardSummary`, `BenefitRow`, `ProgressBar`
+
+All money is stored as integer cents (`amountCents`). Card detail pages group benefits by period (Monthly / Quarterly / Semi-annual / Annual) rather than by category.
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev       # localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Other scripts:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build     # next build
+npm run preview   # local Cloudflare Workers preview via OpenNext
+npm run deploy    # build + deploy to Cloudflare Workers
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Adding or refreshing a card template
 
-## Learn More
+1. Edit the matching file in `src/lib/templates/` (or add a new one).
+2. Export the new template and register it in `src/lib/templates/index.ts`.
+3. When an issuer refreshes a card, edit the existing template in place — user cards reference templates by `id`, so they pick up the new fee / benefits on next render. Don't change the `id` unless you're truly creating a new product.
 
-To learn more about Next.js, take a look at the following resources:
+Use `unit: "flat"` + `amountCents: 0` for non-cash perks (free-night certs, companion award certs) — the UI renders these as a checkbox per period rather than an amount field.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Data sync across devices
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Data is per-browser. To move between machines: **Settings → Export JSON → import on the other device**. No accounts, no cloud sync.
