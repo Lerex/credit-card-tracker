@@ -14,8 +14,16 @@ export function CardSummary({ card }: { card: UserCard }) {
 
   const value = cardAnnualValue(card, template, usages);
   const tone = value.pct >= 1 ? "good" : value.pct >= 0.6 ? "warn" : "bad";
-  const expiring = benefitStatuses(card, template, usages)
-    .filter((s) => s.daysLeft <= 60 && s.pct < 0.5 && s.remainingCents > 0)
+  const statuses = benefitStatuses(card, template, usages);
+  const flatStatuses = statuses.filter((s) => s.benefit.unit === "flat");
+  const expiring = statuses
+    .filter(
+      (s) =>
+        s.benefit.unit !== "flat" &&
+        s.daysLeft <= 60 &&
+        s.pct < 0.5 &&
+        s.remainingCents > 0,
+    )
     .sort((a, b) => a.daysLeft - b.daysLeft)
     .slice(0, 3);
 
@@ -52,6 +60,32 @@ export function CardSummary({ card }: { card: UserCard }) {
           </span>
         </div>
       </div>
+
+      {flatStatuses.length > 0 && (
+        <div className="mt-4 pt-3 border-t border-[var(--border)]">
+          <div className="text-xs text-[var(--muted)] mb-1">🏨 Free nights</div>
+          <ul className="text-xs space-y-1">
+            {flatStatuses.map((s) => {
+              const used = s.usagesInWindow[0];
+              return (
+                <li key={s.benefit.id} className="flex justify-between gap-2">
+                  <span className="flex items-center gap-1.5 min-w-0">
+                    <span className={used ? "text-emerald-600" : "text-[var(--muted)]"}>
+                      {used ? "✓" : "○"}
+                    </span>
+                    <span className="truncate">{s.benefit.name}</span>
+                  </span>
+                  <span className="text-[var(--muted)] shrink-0">
+                    {used
+                      ? `used ${new Date(used.dateISO).toLocaleDateString()}`
+                      : `${s.daysLeft}d left`}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
 
       {expiring.length > 0 && (
         <div className="mt-4 pt-3 border-t border-[var(--border)]">

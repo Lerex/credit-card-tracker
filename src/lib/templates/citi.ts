@@ -34,3 +34,43 @@ export const citiPrestige: CardTemplate = {
     },
   ],
 };
+
+export const citiAAExecutive: CardTemplate = {
+  id: "citi-aa-executive",
+  issuer: "Citi",
+  name: "AAdvantage Executive",
+  annualFeeCents: 59500,
+  qualitativePerks: [
+    "Admirals Club access for cardholder + authorized users + guests",
+    "First checked bag free (up to 8 companions)",
+    "Priority check-in / security / boarding on AA",
+    "Complimentary Main Cabin Extra on eligible AA flights",
+    "10,000 Loyalty Points every $40k spend (up to 80k/yr)",
+  ],
+  benefits: [
+    {
+      id: "grubhub-credit",
+      name: "Grubhub Credit",
+      amountCents: 1000,
+      period: { type: "monthly" },
+      category: "dining",
+      notes: "$10/month on Grubhub — Grubhub+ membership recommended",
+    },
+    {
+      id: "lyft-credit",
+      name: "Lyft Credit",
+      amountCents: 1000,
+      period: { type: "monthly" },
+      category: "travel",
+      notes: "$10/month after 3 Lyft rides in the same month",
+    },
+    {
+      id: "global-entry",
+      name: "Global Entry / TSA PreCheck Credit",
+      amountCents: 12000,
+      period: { type: "cardmember-year" },
+      category: "travel",
+      notes: "$120 every 5 years — shown annually for reference",
+    },
+  ],
+};
