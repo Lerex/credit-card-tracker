@@ -20,6 +20,9 @@ export type BenefitTemplate = {
   period: BenefitPeriod;
   category: BenefitCategory;
   notes?: string;
+  // "flat" = single redemption per period (e.g. a free-night cert). UI shows a
+  // checkbox instead of an amount form; marking used logs one usage at amountCents.
+  unit?: "flat";
 };
 
 export type CardTemplate = {
@@ -39,6 +42,9 @@ export type UserCard = {
   annualFeeChargedMonth: number;
   customBenefits?: BenefitTemplate[];
   disabledBenefitIds?: string[];
+  // Per-benefit expiration override (ISO date). Primarily used for flat benefits
+  // like free-night certs whose expiry is set by the issuer on issuance.
+  benefitExpirations?: Record<string, string>;
 };
 
 export type BenefitUsage = {

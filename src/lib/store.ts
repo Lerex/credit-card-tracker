@@ -18,6 +18,11 @@ type Actions = {
   addCustomBenefit: (cardId: string, benefit: BenefitTemplate) => void;
   logUsage: (usage: Omit<BenefitUsage, "id">) => void;
   removeUsage: (id: string) => void;
+  setBenefitExpiration: (
+    cardId: string,
+    benefitId: string,
+    dateISO: string | null,
+  ) => void;
   exportJSON: () => ExportPayload;
   importJSON: (payload: ExportPayload) => void;
   clearAll: () => void;
@@ -77,6 +82,17 @@ export const useStore = create<State & Actions>()(
 
       removeUsage: (id) =>
         set((s) => ({ usages: s.usages.filter((u) => u.id !== id) })),
+
+      setBenefitExpiration: (cardId, benefitId, dateISO) =>
+        set((s) => ({
+          userCards: s.userCards.map((c) => {
+            if (c.id !== cardId) return c;
+            const next = { ...(c.benefitExpirations ?? {}) };
+            if (dateISO) next[benefitId] = dateISO;
+            else delete next[benefitId];
+            return { ...c, benefitExpirations: next };
+          }),
+        })),
 
       exportJSON: () => ({
         version: 1,

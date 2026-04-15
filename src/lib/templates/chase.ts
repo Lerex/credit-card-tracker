@@ -55,3 +55,28 @@ export const chaseSapphirePreferred: CardTemplate = {
     },
   ],
 };
+
+export const chaseWorldOfHyatt: CardTemplate = {
+  id: "chase-world-of-hyatt",
+  issuer: "Chase",
+  name: "World of Hyatt",
+  annualFeeCents: 9500,
+  qualitativePerks: [
+    "Discoverist status",
+    "5 qualifying night credits / year",
+    "Extra Cat 1–4 free night after $15k calendar-year spend",
+    "2 elite night credits per $5k spent",
+    "2x on restaurants, flights, fitness, local transit",
+  ],
+  benefits: [
+    {
+      id: "free-night",
+      name: "Anniversary Free Night (Cat 1–4)",
+      amountCents: 0,
+      period: { type: "cardmember-year" },
+      category: "travel",
+      notes: "One free night at a Cat 1–4 Hyatt property, posted on anniversary",
+      unit: "flat",
+    },
+  ],
+};

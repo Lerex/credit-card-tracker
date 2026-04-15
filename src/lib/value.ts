@@ -1,4 +1,4 @@
-import { currentWindow, usageInWindow } from "./periods";
+import { currentWindow } from "./periods";
 import type {
   BenefitTemplate,
   BenefitUsage,
@@ -22,6 +22,7 @@ export type BenefitStatus = {
   pct: number;
   windowEnd: Date;
   daysLeft: number;
+  usagesInWindow: BenefitUsage[];
 };
 
 export function benefitStatuses(
@@ -32,19 +33,30 @@ export function benefitStatuses(
 ): BenefitStatus[] {
   return effectiveBenefits(card, template).map((b) => {
     const win = currentWindow(b.period, card.openedAt, now);
-    const usedCents = usageInWindow(usages, b.id, card.id, win);
+    const usagesInWindow = usages.filter((u) => {
+      if (u.userCardId !== card.id) return false;
+      if (u.benefitId !== b.id) return false;
+      const d = new Date(u.dateISO);
+      return d >= win.start && d < win.end;
+    });
+    const usedCents = usagesInWindow.reduce((sum, u) => sum + u.amountCents, 0);
     const remainingCents = Math.max(0, b.amountCents - usedCents);
     const pct = b.amountCents > 0 ? usedCents / b.amountCents : 0;
-    const daysLeft = Math.ceil(
-      (win.end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24),
+    const override =
+      b.unit === "flat" ? card.benefitExpirations?.[b.id] : undefined;
+    const effectiveEnd = override ? new Date(override) : win.end;
+    const daysLeft = Math.max(
+      0,
+      Math.ceil((effectiveEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
     );
     return {
       benefit: b,
       usedCents,
       remainingCents,
       pct,
-      windowEnd: win.end,
+      windowEnd: effectiveEnd,
       daysLeft,
+      usagesInWindow,
     };
   });
 }
