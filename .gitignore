@@ -42,3 +42,8 @@ next-env.d.ts
 
 # claude code (local-only)
 .claude/settings.local.json
+
+# cloudflare / opennext build output
+.open-next/
+.wrangler/
+cloudflare-env.d.ts
