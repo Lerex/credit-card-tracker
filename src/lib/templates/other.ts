@@ -33,6 +33,8 @@ export const bofaPremiumRewardsElite: CardTemplate = {
 };
 
 // Rebranded from Alaska Airlines Visa Signature to Atmos Rewards in 2025.
+// Lounge+ membership credit was discontinued; primary anniversary perk is now
+// the $99 Companion Fare (qualitative — depends on companion eligibility).
 export const bofaAlaskaAscent: CardTemplate = {
   id: "bofa-alaska-ascent",
   issuer: "Other",
@@ -45,20 +47,11 @@ export const bofaAlaskaAscent: CardTemplate = {
     "Transfer Atmos points to Marriott / IHG / Wyndham / Preferred / Shangri-La",
     "No foreign transaction fees",
   ],
-  benefits: [
-    {
-      id: "lounge-plus-credit",
-      name: "Alaska Lounge+ Membership Credit",
-      amountCents: 10000,
-      period: { type: "calendar-year" },
-      category: "travel",
-      notes: "$100/yr toward an Alaska Lounge+ membership purchased with the card",
-    },
-  ],
+  benefits: [],
 };
 
-// Premium Alaska card launched 2025; mostly status / lounge / airline perks,
-// no recurring dollar credits beyond the 4-year Global Entry fee.
+// Premium Alaska card launched 2025; tracked benefits are the recurring
+// companion award certs (modeled like free-night certs).
 export const bofaAlaskaSummit: CardTemplate = {
   id: "bofa-alaska-summit",
   issuer: "Other",
@@ -68,7 +61,6 @@ export const bofaAlaskaSummit: CardTemplate = {
     "Free checked bag + preferred boarding for up to 6 companions (Alaska / Hawaiian)",
     "2 Alaska Lounge passes per quarter (8 / yr)",
     "2 Alaska Wi-Fi passes per quarter",
-    "Global Companion Award on award bookings",
     "Free same-day confirmed flight changes + free same-day standby on Alaska",
     "Automatic $50 voucher on Alaska delays 2+ hr or cancellations within 24 hr",
     "Global Entry / TSA PreCheck credit ($120 every 4 yr)",
@@ -76,5 +68,24 @@ export const bofaAlaskaSummit: CardTemplate = {
     "Transfer Atmos points to Marriott / IHG / Wyndham / Preferred / Shangri-La",
     "No foreign transaction fees",
   ],
-  benefits: [],
+  benefits: [
+    {
+      id: "global-companion-award",
+      name: "Global Companion Award (25k)",
+      amountCents: 0,
+      period: { type: "cardmember-year" },
+      category: "travel",
+      notes: "25,000-point companion award certificate — auto-issued each anniversary",
+      unit: "flat",
+    },
+    {
+      id: "global-companion-award-bonus",
+      name: "Global Companion Award Upgrade (100k)",
+      amountCents: 0,
+      period: { type: "cardmember-year" },
+      category: "travel",
+      notes: "Upgrades the anniversary cert to up to 100,000 points after $60k calendar-year spend (disable if not applicable)",
+      unit: "flat",
+    },
+  ],
 };

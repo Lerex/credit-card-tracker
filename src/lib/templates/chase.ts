@@ -1,17 +1,81 @@
 import type { CardTemplate } from "../types";
 
+// Refreshed June 2025. Fee jumped to $795, restructured into many semi-annual
+// dining/entertainment credits, added The Edit + Chase Travel hotels, replaced
+// Lyft Pink with monthly Lyft credit, added Peloton + Apple TV+ & Music perks.
 export const chaseSapphireReserve: CardTemplate = {
   id: "chase-sapphire-reserve",
   issuer: "Chase",
   name: "Sapphire Reserve",
-  annualFeeCents: 55000,
+  annualFeeCents: 79500,
   qualitativePerks: [
     "Priority Pass Select",
     "Chase Sapphire Lounges",
     "Primary CDW rental insurance",
-    "Global Entry / TSA PreCheck credit",
+    "Global Entry / TSA PreCheck credit ($120 every 4 yr)",
+    "Apple TV+ & Apple Music complimentary subscriptions (~$288 value, through 6/22/2027)",
   ],
   benefits: [
+    // Monthly
+    {
+      id: "lyft-credit",
+      name: "Lyft Credit",
+      amountCents: 1000,
+      period: { type: "monthly" },
+      category: "travel",
+      notes: "$10/month in-app Lyft credit",
+    },
+    {
+      id: "peloton-credit",
+      name: "Peloton Credit",
+      amountCents: 1000,
+      period: { type: "monthly" },
+      category: "wellness",
+      notes: "$10/month toward Peloton membership — through 12/31/2027",
+    },
+    // Semi-annual
+    {
+      id: "dining-credit-csr",
+      name: "Sapphire Reserve Dining Credit",
+      amountCents: 15000,
+      period: { type: "semi-annual" },
+      category: "dining",
+      notes: "$150 Jan–Jun + $150 Jul–Dec at Sapphire Reserve Exclusive Tables restaurants",
+    },
+    {
+      id: "stubhub-credit",
+      name: "StubHub / Viagogo Credit",
+      amountCents: 15000,
+      period: { type: "semi-annual" },
+      category: "other",
+      notes: "$150 Jan–Jun + $150 Jul–Dec on StubHub / Viagogo",
+    },
+    // Calendar-year
+    {
+      id: "the-edit-credit",
+      name: "The Edit Hotel Credit",
+      amountCents: 50000,
+      period: { type: "calendar-year" },
+      category: "travel",
+      notes: "$500/yr via The Edit by Chase Travel — max $250 per transaction, 2+ night prepaid stays",
+    },
+    {
+      id: "chase-travel-hotels-credit",
+      name: "Chase Travel Hotels Credit",
+      amountCents: 25000,
+      period: { type: "calendar-year" },
+      category: "travel",
+      notes: "$250/yr on select brands via Chase Travel: IHG, Minor, Montage, Omni, Pan Pacific, Pendry, Virgin",
+    },
+    {
+      id: "doordash-dashpass",
+      name: "DashPass Membership + Credits",
+      amountCents: 12000,
+      period: { type: "calendar-year" },
+      category: "dining",
+      notes: "Complimentary DashPass + monthly $5 restaurant + $10 grocery + $10 DashMart credits",
+    },
+    // Cardmember-year
     {
       id: "travel-credit",
       name: "Annual Travel Credit",
@@ -19,21 +83,6 @@ export const chaseSapphireReserve: CardTemplate = {
       period: { type: "cardmember-year" },
       category: "travel",
       notes: "Auto-applied to any travel purchase",
-    },
-    {
-      id: "doordash-dashpass",
-      name: "DashPass Membership",
-      amountCents: 12000,
-      period: { type: "calendar-year" },
-      category: "dining",
-      notes: "Complimentary DashPass + monthly credits",
-    },
-    {
-      id: "lyft-pinkpass",
-      name: "Lyft Pink All Access",
-      amountCents: 19900,
-      period: { type: "calendar-year" },
-      category: "travel",
     },
   ],
 };
@@ -123,8 +172,7 @@ export const chaseRitzCarlton: CardTemplate = {
   annualFeeCents: 45000,
   qualitativePerks: [
     "Marriott Bonvoy Gold Elite status",
-    "Priority Pass Select (cardholder + 2 guests)",
-    "$100 property credit on Ritz-Carlton stays of 2+ nights (Bonvoy rate)",
+    "Priority Pass Select (cardholder + 2 guests; additional guests $27 each from 1/15/2026)",
     "Global Entry / TSA PreCheck credit ($100 every 4 yr)",
     "Primary CDW rental insurance",
     "No longer open to new applicants",
@@ -137,6 +185,14 @@ export const chaseRitzCarlton: CardTemplate = {
       period: { type: "calendar-year" },
       category: "travel",
       notes: "$300/yr on one selected airline — bags, seat selection, in-flight (not airfare)",
+    },
+    {
+      id: "ritz-property-credit",
+      name: "Ritz-Carlton Property Credit",
+      amountCents: 10000,
+      period: { type: "cardmember-year" },
+      category: "travel",
+      notes: "$100 on dining/spa/recreation — requires 2+ night Bonvoy-rate stay at Ritz-Carlton or St. Regis (disable if not applicable)",
     },
     {
       id: "free-night",

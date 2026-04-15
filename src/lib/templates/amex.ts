@@ -75,14 +75,6 @@ export const amexPlatinum: CardTemplate = {
       category: "travel",
       notes: "$300 Jan–Jun + $300 Jul–Dec on prepaid FHR or The Hotel Collection via Amex Travel",
     },
-    {
-      id: "saks",
-      name: "Saks Fifth Avenue Credit",
-      amountCents: 5000,
-      period: { type: "semi-annual" },
-      category: "shopping",
-      notes: "$50 Jan–Jun + $50 Jul–Dec",
-    },
     // Annual (calendar year)
     {
       id: "airline-fee",
@@ -308,11 +300,13 @@ export const amexDeltaReserve: CardTemplate = {
   ],
 };
 
+// Refreshed October 2025 (effective at renewal). Fee jumped to $895 with
+// expanded credits (ChatGPT Business, Hilton on-property) and bigger Dell/Adobe/Hotel.
 export const amexBusinessPlatinum: CardTemplate = {
   id: "amex-business-platinum",
   issuer: "Amex",
   name: "Business Platinum",
-  annualFeeCents: 69500,
+  annualFeeCents: 89500,
   qualitativePerks: [
     "5x flights + prepaid hotels via Amex Travel",
     "1.5x on purchases $5,000+ (up to $2M/yr)",
@@ -331,6 +325,22 @@ export const amexBusinessPlatinum: CardTemplate = {
       notes: "$10/month on U.S. wireless telephone provider charges",
     },
     {
+      id: "chatgpt-business-credit",
+      name: "ChatGPT Business Credit",
+      amountCents: 2500,
+      period: { type: "monthly" },
+      category: "other",
+      notes: "$25/month toward ChatGPT Business subscription (enrollment required)",
+    },
+    {
+      id: "hilton-onprop-credit-biz",
+      name: "Hilton On-Property Credit",
+      amountCents: 5000,
+      period: { type: "quarterly" },
+      category: "travel",
+      notes: "$50/quarter on eligible Hilton on-property charges",
+    },
+    {
       id: "indeed-credit",
       name: "Indeed Credit",
       amountCents: 9000,
@@ -339,28 +349,36 @@ export const amexBusinessPlatinum: CardTemplate = {
       notes: "$90/quarter on Indeed recruiting ads",
     },
     {
+      id: "hotel-credit-biz",
+      name: "Hotel Credit (FHR / THC)",
+      amountCents: 30000,
+      period: { type: "semi-annual" },
+      category: "travel",
+      notes: "$300 Jan–Jun + $300 Jul–Dec on prepaid FHR or The Hotel Collection via Amex Travel",
+    },
+    {
       id: "dell-credit",
       name: "Dell Credit",
-      amountCents: 10000,
-      period: { type: "semi-annual" },
+      amountCents: 15000,
+      period: { type: "calendar-year" },
       category: "shopping",
-      notes: "$100 Jan–Jun + $100 Jul–Dec on U.S. Dell Technologies purchases",
+      notes: "$150/yr base on U.S. Dell Technologies purchases",
+    },
+    {
+      id: "dell-bonus-credit",
+      name: "Dell Bonus Credit",
+      amountCents: 100000,
+      period: { type: "calendar-year" },
+      category: "shopping",
+      notes: "Additional $1,000/yr on Dell, unlocked after $5,000 calendar-year spend on the card (disable if not applicable)",
     },
     {
       id: "adobe-credit",
       name: "Adobe Credit",
-      amountCents: 15000,
+      amountCents: 25000,
       period: { type: "calendar-year" },
       category: "shopping",
-      notes: "$150/yr on annual prepaid Adobe Creative Cloud / Acrobat Pro",
-    },
-    {
-      id: "hotel-credit-biz",
-      name: "Hotel Credit (FHR / THC)",
-      amountCents: 40000,
-      period: { type: "calendar-year" },
-      category: "travel",
-      notes: "$400/yr on prepaid FHR or The Hotel Collection via Amex Travel",
+      notes: "$250/yr on annual prepaid Adobe Creative Cloud / Acrobat Pro — requires $600+ purchase to unlock",
     },
     {
       id: "clear-plus-biz",
