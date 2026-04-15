@@ -39,7 +39,7 @@ export default function DashboardPage() {
       {userCards.length > 0 && (
         <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">
           <div className="text-sm text-[var(--muted)]">Portfolio this year</div>
-          <div className="mt-2 flex flex-wrap gap-8">
+          <div className="mt-2 grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:gap-8">
             <div>
               <div className="text-xs text-[var(--muted)]">Total annual fees</div>
               <div className="text-xl font-mono">{formatUSD(totals.fee)}</div>
