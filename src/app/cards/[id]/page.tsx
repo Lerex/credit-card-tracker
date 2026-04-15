@@ -82,7 +82,7 @@ export default function CardDetailPage() {
           </div>
           <button
             onClick={onDelete}
-            className="px-3 py-1 text-sm rounded border border-rose-500 text-rose-600"
+            className="px-3 py-2 sm:py-1 text-sm rounded border border-rose-500 text-rose-600"
           >
             Delete card
           </button>
@@ -133,7 +133,7 @@ export default function CardDetailPage() {
       {cardUsages.length > 0 && (
         <div>
           <h2 className="font-semibold mb-3">History</h2>
-          <div className="rounded-lg border border-[var(--border)] overflow-hidden">
+          <div className="hidden sm:block rounded-lg border border-[var(--border)] overflow-hidden">
             <table className="w-full text-sm">
               <thead className="bg-[var(--card)] text-[var(--muted)]">
                 <tr>
@@ -172,6 +172,42 @@ export default function CardDetailPage() {
                 })}
               </tbody>
             </table>
+          </div>
+          <div className="sm:hidden space-y-2">
+            {cardUsages.map((u) => {
+              const b =
+                template.benefits.find((x) => x.id === u.benefitId) ??
+                card.customBenefits?.find((x) => x.id === u.benefitId);
+              return (
+                <div
+                  key={u.id}
+                  className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-3"
+                >
+                  <div className="flex justify-between items-start gap-2">
+                    <div className="min-w-0 flex-1">
+                      <div className="font-medium text-sm truncate">
+                        {b?.name ?? u.benefitId}
+                      </div>
+                      <div className="text-xs text-[var(--muted)] font-mono mt-0.5">
+                        {new Date(u.dateISO).toLocaleDateString()}
+                      </div>
+                    </div>
+                    <div className="font-mono text-sm shrink-0">
+                      {formatUSD(u.amountCents)}
+                    </div>
+                  </div>
+                  {u.note && (
+                    <div className="mt-1 text-xs text-[var(--muted)]">{u.note}</div>
+                  )}
+                  <button
+                    onClick={() => removeUsage(u.id)}
+                    className="mt-2 inline-flex items-center px-2 py-1 text-xs text-rose-600 rounded border border-rose-500/30"
+                  >
+                    Delete
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

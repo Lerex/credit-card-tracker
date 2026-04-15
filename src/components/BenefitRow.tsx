@@ -78,9 +78,9 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
         </div>
       )}
 
-      <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+      <div className="mt-3 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3">
         {isFlat ? (
-          <>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 w-full">
             <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
               <input
                 type="checkbox"
@@ -89,7 +89,7 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
                   if (flatUsage) removeUsage(flatUsage.id);
                   else markFlatUsed();
                 }}
-                className="h-4 w-4"
+                className="h-5 w-5 sm:h-4 sm:w-4"
               />
               {flatUsage
                 ? `Used on ${new Date(flatUsage.dateISO).toLocaleDateString()}`
@@ -114,50 +114,52 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
                     parsed.toISOString(),
                   );
                 }}
-                className="px-2 py-1 rounded border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]"
+                className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1 rounded border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]"
               />
             </label>
-          </>
+          </div>
         ) : open ? (
-          <div className="flex flex-wrap gap-2 w-full">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2 w-full">
             <input
               type="number"
               step="0.01"
               placeholder="Amount $"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-28 px-2 py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
+              className="w-full sm:w-28 px-3 py-2 sm:px-2 sm:py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
               autoFocus
             />
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="px-2 py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
+              className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
             />
             <input
               placeholder="Note (optional)"
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="flex-1 min-w-32 px-2 py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
+              className="w-full sm:flex-1 sm:min-w-32 px-3 py-2 sm:px-2 sm:py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
             />
-            <button
-              onClick={submit}
-              className="px-3 py-1 text-sm rounded bg-[var(--accent)] text-white hover:opacity-90"
-            >
-              Save
-            </button>
-            <button
-              onClick={() => setOpen(false)}
-              className="px-3 py-1 text-sm rounded border border-[var(--border)]"
-            >
-              Cancel
-            </button>
+            <div className="flex gap-2 sm:contents">
+              <button
+                onClick={submit}
+                className="flex-1 sm:flex-none px-3 py-2 sm:py-1 text-sm rounded bg-[var(--accent)] text-white hover:opacity-90"
+              >
+                Save
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                className="flex-1 sm:flex-none px-3 py-2 sm:py-1 text-sm rounded border border-[var(--border)]"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         ) : (
           <button
             onClick={() => setOpen(true)}
-            className="px-3 py-1 text-sm rounded border border-[var(--border)] hover:bg-[var(--background)]"
+            className="w-full sm:w-auto px-3 py-2 sm:py-1 text-sm rounded border border-[var(--border)] hover:bg-[var(--background)]"
           >
             + Log usage
           </button>

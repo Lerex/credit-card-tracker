@@ -1,0 +1,12 @@
+{
+  "name": "Credit Card Benefit Tracker",
+  "short_name": "Benefits",
+  "description": "Track annual benefits and decide whether to renew",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#09090b",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

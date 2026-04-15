@@ -30,7 +30,7 @@ export function CardSummary({ card }: { card: UserCard }) {
   return (
     <Link
       href={`/cards/${card.id}`}
-      className="block rounded-xl border border-[var(--border)] bg-[var(--card)] p-5 hover:border-[var(--accent)] transition-colors"
+      className="block rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-5 hover:border-[var(--accent)] transition-colors"
     >
       <div className="flex items-start justify-between gap-4">
         <div>

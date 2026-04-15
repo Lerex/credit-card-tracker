@@ -115,17 +115,17 @@ export default function NewCardPage() {
         </div>
       </div>
 
-      <div className="flex justify-end gap-2">
+      <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
         <button
           onClick={() => router.back()}
-          className="px-4 py-2 rounded border border-[var(--border)]"
+          className="w-full sm:w-auto px-4 py-2 rounded border border-[var(--border)]"
         >
           Cancel
         </button>
         <button
           onClick={submit}
           disabled={!templateId}
-          className="px-4 py-2 rounded bg-[var(--accent)] text-white disabled:opacity-50"
+          className="w-full sm:w-auto px-4 py-2 rounded bg-[var(--accent)] text-white disabled:opacity-50"
         >
           Add card
         </button>
