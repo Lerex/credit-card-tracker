@@ -5,7 +5,7 @@ import type { CardTemplate } from "../types";
 export const amexPlatinum: CardTemplate = {
   id: "amex-platinum",
   issuer: "Amex",
-  name: "Platinum Card (2025 refresh)",
+  name: "Platinum Card",
   annualFeeCents: 89500,
   qualitativePerks: [
     "Centurion Lounge + Delta Sky Club + Priority Pass access",

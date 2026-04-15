@@ -12,10 +12,16 @@ import {
   chaseSapphireReserve,
   chaseSapphirePreferred,
   chaseWorldOfHyatt,
+  chaseIhgPremier,
+  chaseRitzCarlton,
 } from "./chase";
-import { citiPremier, citiPrestige, citiAAExecutive } from "./citi";
+import { citiPremier, citiStrataElite, citiAAExecutive } from "./citi";
 import { capitalOneVentureX } from "./capital-one";
-import { bofaPremiumRewardsElite } from "./other";
+import {
+  bofaPremiumRewardsElite,
+  bofaAlaskaAscent,
+  bofaAlaskaSummit,
+} from "./other";
 
 export const CARD_TEMPLATES: CardTemplate[] = [
   amexPlatinum,
@@ -28,11 +34,15 @@ export const CARD_TEMPLATES: CardTemplate[] = [
   chaseSapphireReserve,
   chaseSapphirePreferred,
   chaseWorldOfHyatt,
+  chaseIhgPremier,
+  chaseRitzCarlton,
   citiPremier,
-  citiPrestige,
+  citiStrataElite,
   citiAAExecutive,
   capitalOneVentureX,
   bofaPremiumRewardsElite,
+  bofaAlaskaAscent,
+  bofaAlaskaSummit,
 ];
 
 const byId = new Map(CARD_TEMPLATES.map((t) => [t.id, t]));

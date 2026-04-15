@@ -18,19 +18,40 @@ export const citiPremier: CardTemplate = {
   ],
 };
 
-export const citiPrestige: CardTemplate = {
-  id: "citi-prestige",
+export const citiStrataElite: CardTemplate = {
+  id: "citi-strata-elite",
   issuer: "Citi",
-  name: "Prestige (legacy)",
-  annualFeeCents: 49500,
-  qualitativePerks: ["4th night free at hotels", "Priority Pass Select"],
+  name: "Strata Elite",
+  annualFeeCents: 59500,
+  qualitativePerks: [
+    "4 Admirals Club passes per year (cardholder only)",
+    "Global Entry / TSA PreCheck credit ($120 every 4 yr)",
+    "Citigold / Citi Private Client relationship credit (separate $145/$595)",
+  ],
   benefits: [
     {
-      id: "travel-credit-prestige",
-      name: "Annual Travel Credit",
-      amountCents: 25000,
+      id: "hotel-credit",
+      name: "Citi Travel Hotel Credit",
+      amountCents: 30000,
       period: { type: "calendar-year" },
       category: "travel",
+      notes: "$300/yr off a 2+ night hotel stay booked through cititravel.com",
+    },
+    {
+      id: "splurge-credit",
+      name: "Splurge Credit",
+      amountCents: 20000,
+      period: { type: "calendar-year" },
+      category: "other",
+      notes: "$200/yr across up to 2 chosen brands: 1stDibs, American Airlines, Best Buy, Future Personal Training, Live Nation",
+    },
+    {
+      id: "blacklane-credit",
+      name: "Blacklane Credit",
+      amountCents: 10000,
+      period: { type: "semi-annual" },
+      category: "travel",
+      notes: "$100 Jan–Jun + $100 Jul–Dec on Blacklane chauffeur bookings",
     },
   ],
 };

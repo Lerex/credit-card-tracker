@@ -80,3 +80,72 @@ export const chaseWorldOfHyatt: CardTemplate = {
     },
   ],
 };
+
+export const chaseIhgPremier: CardTemplate = {
+  id: "chase-ihg-premier",
+  issuer: "Chase",
+  name: "IHG One Rewards Premier",
+  annualFeeCents: 9900,
+  qualitativePerks: [
+    "Platinum Elite status",
+    "4th Reward Night free on 4+ night award stays",
+    "$100 statement credit + 10k bonus points after $20k calendar-year spend",
+    "Global Entry / TSA PreCheck credit ($120 every 4 yr)",
+    "Trip delay / baggage / purchase protection",
+    "No foreign transaction fees",
+  ],
+  benefits: [
+    {
+      id: "free-night",
+      name: "Anniversary Free Night (40k cap)",
+      amountCents: 0,
+      period: { type: "cardmember-year" },
+      category: "travel",
+      notes: "Free night at eligible IHG hotels, points cost up to 40k — can top up with points on redemption",
+      unit: "flat",
+    },
+    {
+      id: "united-travelbank",
+      name: "United TravelBank Cash",
+      amountCents: 5000,
+      period: { type: "calendar-year" },
+      category: "travel",
+      notes: "$50/yr in United TravelBank Cash after registering the card with your MileagePlus account",
+    },
+  ],
+};
+
+// Closed to new applicants; existing cardholders keep the card.
+export const chaseRitzCarlton: CardTemplate = {
+  id: "chase-ritz-carlton",
+  issuer: "Chase",
+  name: "Ritz-Carlton",
+  annualFeeCents: 45000,
+  qualitativePerks: [
+    "Marriott Bonvoy Gold Elite status",
+    "Priority Pass Select (cardholder + 2 guests)",
+    "$100 property credit on Ritz-Carlton stays of 2+ nights (Bonvoy rate)",
+    "Global Entry / TSA PreCheck credit ($100 every 4 yr)",
+    "Primary CDW rental insurance",
+    "No longer open to new applicants",
+  ],
+  benefits: [
+    {
+      id: "airline-incidentals",
+      name: "Airline Incidental Credit",
+      amountCents: 30000,
+      period: { type: "calendar-year" },
+      category: "travel",
+      notes: "$300/yr on one selected airline — bags, seat selection, in-flight (not airfare)",
+    },
+    {
+      id: "free-night",
+      name: "Anniversary Free Night (up to 85k)",
+      amountCents: 0,
+      period: { type: "cardmember-year" },
+      category: "travel",
+      notes: "Free night certificate at any Marriott property up to 85k points — can top up with points on redemption",
+      unit: "flat",
+    },
+  ],
+};
