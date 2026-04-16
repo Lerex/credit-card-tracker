@@ -60,24 +60,24 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Settings</h1>
         <p className="text-sm text-[var(--muted)] mt-1">
           Your data is stored in this browser only. Use export/import to move between devices.
         </p>
       </div>
 
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5 space-y-3">
-        <h2 className="font-semibold">Backup</h2>
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 space-y-4">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted)]">Backup</h2>
         <div className="flex flex-wrap gap-2">
           <button
             onClick={onExport}
-            className="px-4 py-2 rounded bg-[var(--accent)] text-white"
+            className="px-4 py-2.5 rounded-lg bg-[var(--accent)] text-white font-medium hover:opacity-90 transition-opacity duration-200"
           >
             Export JSON
           </button>
           <button
             onClick={() => fileRef.current?.click()}
-            className="px-4 py-2 rounded border border-[var(--border)]"
+            className="px-4 py-2.5 rounded-lg border border-[var(--border)] font-medium hover:bg-[var(--background)] transition-colors duration-200"
           >
             Import JSON
           </button>
@@ -91,11 +91,11 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="rounded-xl border border-rose-500/40 bg-[var(--card)] p-5 space-y-3">
-        <h2 className="font-semibold text-rose-600">Danger zone</h2>
+      <div className="rounded-2xl border border-rose-200 bg-[var(--card)] p-6 space-y-4">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-rose-500">Danger zone</h2>
         <button
           onClick={onClear}
-          className="px-4 py-2 rounded border border-rose-500 text-rose-600"
+          className="px-4 py-2.5 rounded-lg border border-rose-300 text-rose-600 font-medium hover:bg-rose-50 transition-colors duration-200"
         >
           Clear all data
         </button>

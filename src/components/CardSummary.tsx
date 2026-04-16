@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useStore } from "@/lib/store";
-import { getTemplate } from "@/lib/templates";
+import { getTemplate, getCardColor } from "@/lib/templates";
 import { benefitStatuses, cardAnnualValue, formatUSD } from "@/lib/value";
 import type { UserCard } from "@/lib/types";
 import { ProgressBar } from "./ProgressBar";
@@ -12,6 +12,7 @@ export function CardSummary({ card }: { card: UserCard }) {
   const template = getTemplate(card.templateId);
   if (!template) return null;
 
+  const colors = getCardColor(template);
   const value = cardAnnualValue(card, template, usages);
   const tone = value.pct >= 1 ? "good" : value.pct >= 0.6 ? "warn" : "bad";
   const statuses = benefitStatuses(card, template, usages);
@@ -30,11 +31,12 @@ export function CardSummary({ card }: { card: UserCard }) {
   return (
     <Link
       href={`/cards/${card.id}`}
-      className="block rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-5 hover:border-[var(--accent)] transition-colors"
+      className="group block rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/5"
+      style={{ borderLeftWidth: "3px", borderLeftColor: colors.primary }}
     >
       <div className="flex items-start justify-between gap-4">
         <div>
-          <div className="text-xs text-[var(--muted)]">{template.issuer}</div>
+          <div className="text-xs font-medium" style={{ color: colors.primary }}>{template.issuer}</div>
           <div className="font-semibold text-lg">
             {card.nickname ? `${card.nickname} · ${template.name}` : template.name}
           </div>
@@ -52,7 +54,7 @@ export function CardSummary({ card }: { card: UserCard }) {
             {formatUSD(value.annualUsedCents)} / {formatUSD(template.annualFeeCents)}
           </span>
         </div>
-        <ProgressBar pct={value.pct} tone={tone} />
+        <ProgressBar pct={value.pct} tone={tone} issuerColor={colors.primary} issuerColorLight={colors.light} />
         <div className="text-sm">
           Net value:{" "}
           <span className={`font-mono font-semibold ${value.netCents >= 0 ? "text-emerald-600" : "text-rose-600"}`}>
