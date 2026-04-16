@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useStore } from "@/lib/store";
-import { CARD_TEMPLATES } from "@/lib/templates";
+import { CARD_TEMPLATES, ISSUER_COLORS } from "@/lib/templates";
 import { formatUSD } from "@/lib/value";
 
 export default function NewCardPage() {
@@ -38,7 +38,7 @@ export default function NewCardPage() {
   return (
     <div className="space-y-6 max-w-2xl">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Add Card</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Add Card</h1>
         <p className="text-sm text-[var(--muted)] mt-1">
           Pick a template, then fill in your personal details.
         </p>
@@ -48,15 +48,21 @@ export default function NewCardPage() {
         <label className="block text-sm font-medium">Card template</label>
         {Object.entries(grouped).map(([issuer, list]) => (
           <div key={issuer} className="space-y-2">
-            <div className="text-xs text-[var(--muted)] font-semibold">{issuer}</div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-[var(--muted)]">
+              <span
+                className="inline-block h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: (ISSUER_COLORS[issuer] ?? ISSUER_COLORS["Other"]).primary }}
+              />
+              {issuer}
+            </div>
             <div className="grid gap-2 sm:grid-cols-2">
               {list.map((t) => (
                 <label
                   key={t.id}
-                  className={`cursor-pointer rounded-lg border p-3 ${
+                  className={`cursor-pointer rounded-xl border p-3 transition-all duration-200 ${
                     templateId === t.id
-                      ? "border-[var(--accent)] bg-[var(--accent)]/10"
-                      : "border-[var(--border)]"
+                      ? "border-[var(--accent)] bg-[var(--accent)]/5 shadow-sm"
+                      : "border-[var(--border)] hover:border-[var(--muted)] hover:bg-[var(--card-hover)]"
                   }`}
                 >
                   <input
@@ -85,7 +91,7 @@ export default function NewCardPage() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             placeholder="e.g. My Platinum"
-            className="w-full px-3 py-2 rounded border border-[var(--border)] bg-[var(--background)]"
+            className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
           />
         </div>
         <div>
@@ -94,7 +100,7 @@ export default function NewCardPage() {
             type="date"
             value={openedAt}
             onChange={(e) => setOpenedAt(e.target.value)}
-            className="w-full px-3 py-2 rounded border border-[var(--border)] bg-[var(--background)]"
+            className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
           />
         </div>
         <div>
@@ -104,7 +110,7 @@ export default function NewCardPage() {
           <select
             value={chargedMonth}
             onChange={(e) => setChargedMonth(Number(e.target.value))}
-            className="w-full px-3 py-2 rounded border border-[var(--border)] bg-[var(--background)]"
+            className="w-full px-3 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
           >
             {Array.from({ length: 12 }, (_, i) => i + 1).map((m) => (
               <option key={m} value={m}>
@@ -118,14 +124,14 @@ export default function NewCardPage() {
       <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
         <button
           onClick={() => router.back()}
-          className="w-full sm:w-auto px-4 py-2 rounded border border-[var(--border)]"
+          className="w-full sm:w-auto px-4 py-2.5 rounded-lg border border-[var(--border)] font-medium hover:bg-[var(--background)] transition-colors duration-200"
         >
           Cancel
         </button>
         <button
           onClick={submit}
           disabled={!templateId}
-          className="w-full sm:w-auto px-4 py-2 rounded bg-[var(--accent)] text-white disabled:opacity-50"
+          className="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-[var(--accent)] text-white font-medium disabled:opacity-50 hover:opacity-90 transition-opacity duration-200"
         >
           Add card
         </button>

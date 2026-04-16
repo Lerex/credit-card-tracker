@@ -5,7 +5,7 @@ import { useStore } from "@/lib/store";
 import { formatUSD, type BenefitStatus } from "@/lib/value";
 import { ProgressBar } from "./ProgressBar";
 
-export function BenefitRow({ userCardId, status }: { userCardId: string; status: BenefitStatus }) {
+export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }: { userCardId: string; status: BenefitStatus; issuerColor?: string; issuerColorLight?: string }) {
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
@@ -51,7 +51,7 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
   };
 
   return (
-    <div className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-4">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-5 transition-colors duration-200 hover:bg-[var(--card-hover)]">
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <div className="font-medium">{status.benefit.name}</div>
@@ -74,7 +74,7 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
 
       {!isFlat && (
         <div className="mt-3">
-          <ProgressBar pct={status.pct} tone={tone} />
+          <ProgressBar pct={status.pct} tone={tone} issuerColor={issuerColor} issuerColorLight={issuerColorLight} />
         </div>
       )}
 
@@ -114,7 +114,7 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
                     parsed.toISOString(),
                   );
                 }}
-                className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1 rounded border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]"
+                className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
               />
             </label>
           </div>
@@ -126,31 +126,31 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
               placeholder="Amount $"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full sm:w-28 px-3 py-2 sm:px-2 sm:py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
+              className="w-full sm:w-28 px-3 py-2 sm:px-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
               autoFocus
             />
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
+              className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
             />
             <input
               placeholder="Note (optional)"
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="w-full sm:flex-1 sm:min-w-32 px-3 py-2 sm:px-2 sm:py-1 text-sm rounded border border-[var(--border)] bg-[var(--background)]"
+              className="w-full sm:flex-1 sm:min-w-32 px-3 py-2 sm:px-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
             />
             <div className="flex gap-2 sm:contents">
               <button
                 onClick={submit}
-                className="flex-1 sm:flex-none px-3 py-2 sm:py-1 text-sm rounded bg-[var(--accent)] text-white hover:opacity-90"
+                className="flex-1 sm:flex-none px-4 py-2 sm:py-1.5 text-sm rounded-lg bg-[var(--accent)] text-white font-medium hover:opacity-90 transition-opacity duration-200"
               >
                 Save
               </button>
               <button
                 onClick={() => setOpen(false)}
-                className="flex-1 sm:flex-none px-3 py-2 sm:py-1 text-sm rounded border border-[var(--border)]"
+                className="flex-1 sm:flex-none px-4 py-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] hover:bg-[var(--background)] transition-colors duration-200"
               >
                 Cancel
               </button>
@@ -159,7 +159,7 @@ export function BenefitRow({ userCardId, status }: { userCardId: string; status:
         ) : (
           <button
             onClick={() => setOpen(true)}
-            className="w-full sm:w-auto px-3 py-2 sm:py-1 text-sm rounded border border-[var(--border)] hover:bg-[var(--background)]"
+            className="w-full sm:w-auto px-3 py-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] hover:bg-[var(--background)] hover:border-[var(--muted)] transition-colors duration-200"
           >
             + Log usage
           </button>

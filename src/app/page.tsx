@@ -30,32 +30,38 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Dashboard</h1>
         <p className="text-sm text-[var(--muted)] mt-1">
           Your cards and benefit utilization at a glance.
         </p>
       </div>
 
       {userCards.length > 0 && (
-        <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">
-          <div className="text-sm text-[var(--muted)]">Portfolio this year</div>
-          <div className="mt-2 grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:gap-8">
-            <div>
-              <div className="text-xs text-[var(--muted)]">Total annual fees</div>
-              <div className="text-xl font-mono">{formatUSD(totals.fee)}</div>
-            </div>
-            <div>
-              <div className="text-xs text-[var(--muted)]">Benefits used</div>
-              <div className="text-xl font-mono">{formatUSD(totals.used)}</div>
-            </div>
-            <div>
-              <div className="text-xs text-[var(--muted)]">Net</div>
-              <div
-                className={`text-xl font-mono font-semibold ${
-                  totals.used - totals.fee >= 0 ? "text-emerald-600" : "text-rose-600"
-                }`}
-              >
-                {formatUSD(totals.used - totals.fee)}
+        <div className="relative rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 overflow-hidden">
+          <div
+            className="pointer-events-none absolute -top-24 -right-24 h-48 w-48 rounded-full opacity-[0.07]"
+            style={{ background: "radial-gradient(circle, var(--accent), transparent 70%)" }}
+          />
+          <div className="relative">
+            <div className="text-sm font-medium tracking-tight">Portfolio this year</div>
+            <div className="mt-4 grid grid-cols-3 gap-3 sm:flex sm:flex-wrap sm:gap-10">
+              <div>
+                <div className="text-[11px] uppercase tracking-wider text-[var(--muted)] font-medium">Annual fees</div>
+                <div className="text-2xl sm:text-3xl font-mono font-light mt-0.5">{formatUSD(totals.fee)}</div>
+              </div>
+              <div>
+                <div className="text-[11px] uppercase tracking-wider text-[var(--muted)] font-medium">Benefits used</div>
+                <div className="text-2xl sm:text-3xl font-mono font-light mt-0.5">{formatUSD(totals.used)}</div>
+              </div>
+              <div>
+                <div className="text-[11px] uppercase tracking-wider text-[var(--muted)] font-medium">Net</div>
+                <div
+                  className={`text-2xl sm:text-3xl font-mono font-semibold mt-0.5 ${
+                    totals.used - totals.fee >= 0 ? "text-emerald-500" : "text-rose-500"
+                  }`}
+                >
+                  {formatUSD(totals.used - totals.fee)}
+                </div>
               </div>
             </div>
           </div>
@@ -63,11 +69,11 @@ export default function DashboardPage() {
       )}
 
       {userCards.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-[var(--border)] p-12 text-center">
-          <p className="text-[var(--muted)] mb-4">No cards yet.</p>
+        <div className="rounded-2xl border border-dashed border-[var(--border)] p-16 text-center">
+          <p className="text-[var(--muted)] mb-6 text-lg">No cards yet.</p>
           <Link
             href="/cards/new"
-            className="inline-block px-4 py-2 rounded bg-[var(--accent)] text-white"
+            className="inline-block px-5 py-2.5 rounded-lg bg-[var(--accent)] text-white font-medium hover:opacity-90 transition-opacity duration-200"
           >
             Add your first card
           </Link>

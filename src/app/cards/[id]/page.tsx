@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useStore } from "@/lib/store";
-import { getTemplate } from "@/lib/templates";
+import { getTemplate, getCardColor } from "@/lib/templates";
 import { benefitStatuses, cardAnnualValue, formatUSD } from "@/lib/value";
 import { BenefitRow } from "@/components/BenefitRow";
 import { ProgressBar } from "@/components/ProgressBar";
@@ -22,6 +22,7 @@ export default function CardDetailPage() {
   const template = getTemplate(card.templateId);
   if (!template) return notFound();
 
+  const colors = getCardColor(template);
   const statuses = benefitStatuses(card, template, usages);
 
   const PERIOD_ORDER = [
@@ -63,13 +64,13 @@ export default function CardDetailPage() {
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/" className="text-sm text-[var(--muted)] hover:underline">
-          ← Dashboard
+        <Link href="/" className="inline-flex items-center gap-1 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">
+          <span aria-hidden="true">&larr;</span> Dashboard
         </Link>
         <div className="mt-2 flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="text-xs text-[var(--muted)]">{template.issuer}</div>
-            <h1 className="text-2xl font-semibold tracking-tight">
+            <div className="text-xs font-medium" style={{ color: colors.primary }}>{template.issuer}</div>
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">
               {card.nickname ? `${card.nickname} · ${template.name}` : template.name}
             </h1>
             <div className="text-sm text-[var(--muted)] mt-1">
@@ -82,38 +83,41 @@ export default function CardDetailPage() {
           </div>
           <button
             onClick={onDelete}
-            className="px-3 py-2 sm:py-1 text-sm rounded border border-rose-500 text-rose-600"
+            className="px-3 py-2 sm:py-1.5 text-sm rounded-lg border border-rose-300 text-rose-600 hover:bg-rose-50 transition-colors duration-200"
           >
             Delete card
           </button>
         </div>
       </div>
 
-      <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">
-        <div className="flex justify-between text-sm">
-          <span>Net value this year</span>
-          <span className="font-mono">
-            {formatUSD(value.annualUsedCents)} used − {formatUSD(value.annualFeeCents)} fee
-          </span>
-        </div>
-        <div className="mt-2">
-          <ProgressBar pct={value.pct} tone={tone} />
-        </div>
-        <div
-          className={`mt-2 text-lg font-mono font-semibold ${
-            value.netCents >= 0 ? "text-emerald-600" : "text-rose-600"
-          }`}
-        >
-          {formatUSD(value.netCents)}
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] overflow-hidden">
+        <div className="h-1" style={{ background: `linear-gradient(90deg, ${colors.primary}, ${colors.light})` }} />
+        <div className="p-5">
+          <div className="flex justify-between text-sm">
+            <span>Net value this year</span>
+            <span className="font-mono">
+              {formatUSD(value.annualUsedCents)} used − {formatUSD(value.annualFeeCents)} fee
+            </span>
+          </div>
+          <div className="mt-2">
+            <ProgressBar pct={value.pct} tone={tone} issuerColor={colors.primary} issuerColorLight={colors.light} />
+          </div>
+          <div
+            className={`mt-2 text-2xl sm:text-3xl font-mono font-semibold ${
+              value.netCents >= 0 ? "text-emerald-500" : "text-rose-500"
+            }`}
+          >
+            {formatUSD(value.netCents)}
+          </div>
         </div>
       </div>
 
       {grouped.map((g) => (
         <section key={g.period}>
-          <h2 className="font-semibold mb-3">{g.title}</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted)] mb-3">{g.title}</h2>
           <div className="grid gap-3">
             {g.items.map((s) => (
-              <BenefitRow key={s.benefit.id} userCardId={card.id} status={s} />
+              <BenefitRow key={s.benefit.id} userCardId={card.id} status={s} issuerColor={colors.primary} issuerColorLight={colors.light} />
             ))}
           </div>
         </section>
@@ -121,7 +125,7 @@ export default function CardDetailPage() {
 
       {template.qualitativePerks && template.qualitativePerks.length > 0 && (
         <div>
-          <h2 className="font-semibold mb-3">Other perks</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted)] mb-3">Other perks</h2>
           <ul className="list-disc list-inside text-sm text-[var(--muted)] space-y-1">
             {template.qualitativePerks.map((p) => (
               <li key={p}>{p}</li>
@@ -132,10 +136,10 @@ export default function CardDetailPage() {
 
       {cardUsages.length > 0 && (
         <div>
-          <h2 className="font-semibold mb-3">History</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted)] mb-3">History</h2>
           <div className="hidden sm:block rounded-lg border border-[var(--border)] overflow-hidden">
             <table className="w-full text-sm">
-              <thead className="bg-[var(--card)] text-[var(--muted)]">
+              <thead className="bg-[var(--background)] text-[var(--muted)] text-xs uppercase tracking-wider">
                 <tr>
                   <th className="text-left px-3 py-2">Date</th>
                   <th className="text-left px-3 py-2">Benefit</th>

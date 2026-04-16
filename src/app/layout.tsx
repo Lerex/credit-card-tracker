@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/BottomNav";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const plusJakarta = Plus_Jakarta_Sans({ variable: "--font-geist-sans", subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,24 +23,24 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#fafaf8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0c" },
   ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${plusJakarta.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <header className="border-b border-[var(--border)] bg-[var(--card)]">
+        <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--surface-glass)] backdrop-blur-xl">
           <nav className="mx-auto max-w-5xl px-4 sm:px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="font-semibold text-lg tracking-tight">
+            <Link href="/" className="font-semibold text-lg tracking-tight hover:opacity-80 transition-opacity duration-200">
               💳 Benefit Tracker
             </Link>
-            <div className="hidden sm:flex items-center gap-4 text-sm">
-              <Link href="/" className="hover:underline">Dashboard</Link>
-              <Link href="/cards/new" className="hover:underline">Add Card</Link>
-              <Link href="/settings" className="hover:underline">Settings</Link>
+            <div className="hidden sm:flex items-center gap-5 text-sm">
+              <Link href="/" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">Dashboard</Link>
+              <Link href="/cards/new" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">Add Card</Link>
+              <Link href="/settings" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">Settings</Link>
             </div>
           </nav>
         </header>
