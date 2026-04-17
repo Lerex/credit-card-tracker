@@ -5,6 +5,14 @@ export const capitalOneVentureX: CardTemplate = {
   issuer: "Capital One",
   name: "Venture X",
   annualFeeCents: 39500,
+  pointsCurrency: "CapOneMiles",
+  earningRates: [
+    { category: "hotels", multiplier: 10, bookingMethod: "issuer-portal", notes: "Via Capital One Travel" },
+    { category: "hotels", multiplier: 2, bookingMethod: "direct" },
+    { category: "flights", multiplier: 5, bookingMethod: "issuer-portal", notes: "Via Capital One Travel" },
+    { category: "flights", multiplier: 2, bookingMethod: "direct" },
+    { category: "other", multiplier: 2 },
+  ],
   qualitativePerks: [
     "Priority Pass Select (unlimited guests)",
     "Capital One Lounges + Plaza Premium access",

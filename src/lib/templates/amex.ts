@@ -7,6 +7,14 @@ export const amexPlatinum: CardTemplate = {
   issuer: "Amex",
   name: "Platinum Card",
   annualFeeCents: 89500,
+  pointsCurrency: "MR",
+  earningRates: [
+    { category: "flights", multiplier: 5, bookingMethod: "direct", annualCapCents: 50000000, notes: "Up to $500k/yr, then 1x" },
+    { category: "flights", multiplier: 5, bookingMethod: "issuer-portal", notes: "Via Amex Travel" },
+    { category: "hotels", multiplier: 5, bookingMethod: "issuer-portal", notes: "Prepaid hotels via Amex Travel" },
+    { category: "hotels", multiplier: 1, bookingMethod: "direct" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: [
     "Centurion Lounge + Delta Sky Club + Priority Pass access",
     "Fine Hotels + Resorts benefits",
@@ -117,6 +125,15 @@ export const amexGold: CardTemplate = {
   issuer: "Amex",
   name: "Gold Card",
   annualFeeCents: 32500,
+  pointsCurrency: "MR",
+  earningRates: [
+    { category: "dining", multiplier: 4, annualCapCents: 5000000, notes: "Up to $50k/yr, then 1x. Restaurants worldwide + Uber Eats" },
+    { category: "groceries", multiplier: 4, annualCapCents: 2500000, notes: "US supermarkets, up to $25k/yr. Excludes Walmart / Target / wholesale clubs" },
+    { category: "flights", multiplier: 3, bookingMethod: "direct", notes: "Booked direct with airlines" },
+    { category: "flights", multiplier: 3, bookingMethod: "issuer-portal", notes: "Via Amex Travel" },
+    { category: "hotels", multiplier: 2, bookingMethod: "issuer-portal", notes: "Prepaid hotels via Amex Travel" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: ["4x dining + US supermarkets", "3x flights booked with Amex Travel"],
   benefits: [
     {
@@ -159,6 +176,14 @@ export const amexGreen: CardTemplate = {
   issuer: "Amex",
   name: "Green Card",
   annualFeeCents: 15000,
+  pointsCurrency: "MR",
+  earningRates: [
+    { category: "dining", multiplier: 3 },
+    { category: "flights", multiplier: 3 },
+    { category: "hotels", multiplier: 3 },
+    { category: "transit", multiplier: 3, notes: "Rideshare, trains, taxis, tolls, parking" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: ["3x travel, transit, dining", "LoungeBuddy credit"],
   benefits: [
     {
@@ -176,6 +201,13 @@ export const amexHiltonAspire: CardTemplate = {
   issuer: "Amex",
   name: "Hilton Honors Aspire",
   annualFeeCents: 55000,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "hotels", multiplier: 14, notes: "Hilton properties only — not chain-agnostic" },
+    { category: "dining", multiplier: 7, notes: "US restaurants" },
+    { category: "flights", multiplier: 7, notes: "Direct with airlines or via Amex Travel" },
+    { category: "other", multiplier: 3 },
+  ],
   qualitativePerks: [
     "Hilton Honors Diamond status",
     "Second free night after $30k calendar-year spend",
@@ -232,6 +264,13 @@ export const amexMarriottBrilliant: CardTemplate = {
   issuer: "Amex",
   name: "Marriott Bonvoy Brilliant",
   annualFeeCents: 65000,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "hotels", multiplier: 6, notes: "Marriott Bonvoy properties only" },
+    { category: "dining", multiplier: 3, notes: "Restaurants worldwide" },
+    { category: "flights", multiplier: 3, notes: "Booked direct with airlines" },
+    { category: "other", multiplier: 2 },
+  ],
   qualitativePerks: [
     "Marriott Bonvoy Platinum Elite status",
     "$100 property credit on 2+ night Bonvoy-rate stays at St. Regis / Ritz-Carlton",
@@ -264,6 +303,11 @@ export const amexDeltaReserve: CardTemplate = {
   issuer: "Amex",
   name: "Delta SkyMiles Reserve",
   annualFeeCents: 65000,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "flights", multiplier: 3, notes: "Delta flights only" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: [
     "Delta Sky Club access when flying Delta",
     "Centurion Lounge access when flying Delta (same-day ticket)",
@@ -307,6 +351,14 @@ export const amexBusinessPlatinum: CardTemplate = {
   issuer: "Amex",
   name: "Business Platinum",
   annualFeeCents: 89500,
+  pointsCurrency: "MR",
+  earningRates: [
+    { category: "flights", multiplier: 5, bookingMethod: "direct" },
+    { category: "flights", multiplier: 5, bookingMethod: "issuer-portal", notes: "Via Amex Travel" },
+    { category: "hotels", multiplier: 5, bookingMethod: "issuer-portal", notes: "Prepaid hotels via Amex Travel" },
+    { category: "hotels", multiplier: 1, bookingMethod: "direct" },
+    { category: "other", multiplier: 1, notes: "1.5x on purchases $5,000+ (up to $2M/yr)" },
+  ],
   qualitativePerks: [
     "5x flights + prepaid hotels via Amex Travel",
     "1.5x on purchases $5,000+ (up to $2M/yr)",
