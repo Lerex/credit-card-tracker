@@ -25,6 +25,33 @@ export type BenefitTemplate = {
   unit?: "flat";
 };
 
+// Points "currency" — determines how `multiplier` converts to cents via CPP lookup.
+export type PointsCurrency =
+  | "MR"           // Amex Membership Rewards
+  | "UR"           // Chase Ultimate Rewards
+  | "TY"           // Citi ThankYou
+  | "CapOneMiles"  // Capital One Miles
+  | "Cashback"     // 1¢/point, earns cash
+  | "Other";       // hotel/airline points without a published valuation default
+
+export type BookingMethod = "issuer-portal" | "direct" | "any";
+
+export type SpendCategory =
+  | "dining"
+  | "groceries"
+  | "flights"
+  | "hotels"
+  | "transit"   // rideshare + public transit
+  | "other";    // catch-all / base rate
+
+export type EarningRate = {
+  category: SpendCategory;
+  multiplier: number;              // points per $1 (1 = base, 4 = 4x)
+  bookingMethod?: BookingMethod;   // default "any"; used mainly for flights/hotels
+  annualCapCents?: number;         // metadata only in v1 — shown in UI, not enforced
+  notes?: string;                  // e.g. "US supermarkets only, excl. Walmart/Target"
+};
+
 export type CardTemplate = {
   id: string;
   issuer: "Amex" | "Chase" | "Citi" | "Capital One" | "Other";
@@ -32,6 +59,8 @@ export type CardTemplate = {
   annualFeeCents: number;
   benefits: BenefitTemplate[];
   qualitativePerks?: string[];
+  earningRates?: EarningRate[];
+  pointsCurrency?: PointsCurrency;
 };
 
 export type UserCard = {
@@ -56,9 +85,13 @@ export type BenefitUsage = {
   note?: string;
 };
 
+// cents per point — partial so unset currencies fall back to DEFAULT_CPP.
+export type CppSettings = Partial<Record<PointsCurrency, number>>;
+
 export type ExportPayload = {
-  version: 1;
+  version: 1 | 2;
   exportedAt: string;
   userCards: UserCard[];
   usages: BenefitUsage[];
+  cppOverrides?: CppSettings;
 };

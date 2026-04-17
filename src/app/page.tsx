@@ -5,6 +5,7 @@ import { useStore } from "@/lib/store";
 import { getTemplate } from "@/lib/templates";
 import { cardAnnualValue, formatUSD } from "@/lib/value";
 import { CardSummary } from "@/components/CardSummary";
+import { CATEGORY_LABEL, CATEGORY_ORDER } from "@/lib/recommend";
 
 export default function DashboardPage() {
   const userCards = useStore((s) => s.userCards);
@@ -79,11 +80,28 @@ export default function DashboardPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2">
-          {userCards.map((c) => (
-            <CardSummary key={c.id} card={c} />
-          ))}
-        </div>
+        <>
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5">
+            <div className="text-sm font-medium tracking-tight mb-3">Which card for…</div>
+            <div className="flex flex-wrap gap-2">
+              {CATEGORY_ORDER.map((c) => (
+                <Link
+                  key={c}
+                  href={`/recommend?category=${c}`}
+                  className="px-3.5 py-2 rounded-full text-sm font-medium border border-[var(--border)] hover:bg-[var(--background)] transition-colors duration-200"
+                >
+                  {CATEGORY_LABEL[c]}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            {userCards.map((c) => (
+              <CardSummary key={c.id} card={c} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

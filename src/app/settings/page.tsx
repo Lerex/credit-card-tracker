@@ -1,8 +1,18 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useStore } from "@/lib/store";
-import type { ExportPayload } from "@/lib/types";
+import { CURRENCY_LABEL, DEFAULT_CPP } from "@/lib/cpp";
+import type { ExportPayload, PointsCurrency } from "@/lib/types";
+
+const CPP_CURRENCIES: PointsCurrency[] = [
+  "MR",
+  "UR",
+  "TY",
+  "CapOneMiles",
+  "Cashback",
+  "Other",
+];
 
 export default function SettingsPage() {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -10,6 +20,8 @@ export default function SettingsPage() {
   const importJSON = useStore((s) => s.importJSON);
   const clearAll = useStore((s) => s.clearAll);
   const hydrated = useStore((s) => s.hydrated);
+  const cppOverrides = useStore((s) => s.cppOverrides);
+  const setCppOverride = useStore((s) => s.setCppOverride);
 
   const onExport = () => {
     const payload = exportJSON();
@@ -30,7 +42,11 @@ export default function SettingsPage() {
     try {
       const text = await file.text();
       const data = JSON.parse(text) as ExportPayload;
-      if (data.version !== 1 || !Array.isArray(data.userCards)) {
+      if (
+        (data.version !== 1 && data.version !== 2) ||
+        !Array.isArray(data.userCards) ||
+        !Array.isArray(data.usages)
+      ) {
         alert("Invalid file format.");
         return;
       }
@@ -67,6 +83,27 @@ export default function SettingsPage() {
       </div>
 
       <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 space-y-4">
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted)]">
+            Point values
+          </h2>
+          <p className="text-xs text-[var(--muted)] mt-1">
+            Cents per point when converting card rewards into cash value. Adjust for the redemption rate you typically get.
+          </p>
+        </div>
+        <div className="space-y-2">
+          {CPP_CURRENCIES.map((c) => (
+            <CppRow
+              key={c}
+              currency={c}
+              override={cppOverrides[c]}
+              onChange={(v) => setCppOverride(c, v)}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 space-y-4">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--muted)]">Backup</h2>
         <div className="flex flex-wrap gap-2">
           <button
@@ -99,6 +136,65 @@ export default function SettingsPage() {
         >
           Clear all data
         </button>
+      </div>
+    </div>
+  );
+}
+
+function CppRow({
+  currency,
+  override,
+  onChange,
+}: {
+  currency: PointsCurrency;
+  override: number | undefined;
+  onChange: (v: number | null) => void;
+}) {
+  const defaultCpp = DEFAULT_CPP[currency];
+  const isOverridden = typeof override === "number";
+  const [raw, setRaw] = useState<string>(
+    isOverridden ? String(override) : String(defaultCpp),
+  );
+
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <div className="min-w-0">
+        <div className="text-sm font-medium">{CURRENCY_LABEL[currency]}</div>
+        <div className="text-xs text-[var(--muted)]">
+          Default {defaultCpp.toFixed(1)}¢{isOverridden ? " · overridden" : ""}
+        </div>
+      </div>
+      <div className="flex items-center gap-2 shrink-0">
+        <input
+          type="number"
+          step="0.1"
+          min="0"
+          value={raw}
+          onChange={(e) => setRaw(e.target.value)}
+          onBlur={() => {
+            const num = parseFloat(raw);
+            if (!Number.isFinite(num) || num < 0) {
+              setRaw(isOverridden ? String(override) : String(defaultCpp));
+              return;
+            }
+            if (Math.abs(num - defaultCpp) < 1e-9) onChange(null);
+            else onChange(num);
+          }}
+          className="w-20 px-2 py-1.5 rounded-md border border-[var(--border)] bg-[var(--background)] font-mono text-sm text-right"
+        />
+        <span className="text-sm text-[var(--muted)]">¢</span>
+        {isOverridden ? (
+          <button
+            type="button"
+            onClick={() => {
+              setRaw(String(defaultCpp));
+              onChange(null);
+            }}
+            className="text-xs text-[var(--muted)] underline underline-offset-2 hover:text-[var(--foreground)]"
+          >
+            Reset
+          </button>
+        ) : null}
       </div>
     </div>
   );

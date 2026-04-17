@@ -8,6 +8,15 @@ export const chaseSapphireReserve: CardTemplate = {
   issuer: "Chase",
   name: "Sapphire Reserve",
   annualFeeCents: 79500,
+  pointsCurrency: "UR",
+  earningRates: [
+    { category: "flights", multiplier: 8, bookingMethod: "issuer-portal", notes: "Via Chase Travel" },
+    { category: "flights", multiplier: 4, bookingMethod: "direct", notes: "Direct with airlines" },
+    { category: "hotels", multiplier: 8, bookingMethod: "issuer-portal", notes: "Via Chase Travel" },
+    { category: "hotels", multiplier: 4, bookingMethod: "direct", notes: "Direct with hotels" },
+    { category: "dining", multiplier: 3 },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: [
     "Priority Pass Select",
     "Chase Sapphire Lounges",
@@ -92,6 +101,17 @@ export const chaseSapphirePreferred: CardTemplate = {
   issuer: "Chase",
   name: "Sapphire Preferred",
   annualFeeCents: 9500,
+  pointsCurrency: "UR",
+  earningRates: [
+    { category: "flights", multiplier: 5, bookingMethod: "issuer-portal", notes: "Via Chase Travel" },
+    { category: "flights", multiplier: 2, bookingMethod: "direct" },
+    { category: "hotels", multiplier: 5, bookingMethod: "issuer-portal", notes: "Via Chase Travel" },
+    { category: "hotels", multiplier: 2, bookingMethod: "direct" },
+    { category: "dining", multiplier: 3, notes: "Includes eligible delivery + takeout" },
+    { category: "groceries", multiplier: 3, notes: "Online grocery purchases only (excl. Walmart / Target / wholesale clubs)" },
+    { category: "transit", multiplier: 2, notes: "Part of travel category" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: ["Primary CDW rental insurance", "Trip delay insurance"],
   benefits: [
     {
@@ -110,6 +130,14 @@ export const chaseWorldOfHyatt: CardTemplate = {
   issuer: "Chase",
   name: "World of Hyatt",
   annualFeeCents: 9500,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "hotels", multiplier: 4, notes: "Hyatt properties only" },
+    { category: "dining", multiplier: 2 },
+    { category: "flights", multiplier: 2 },
+    { category: "transit", multiplier: 2, notes: "Local transit + rideshare" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: [
     "Discoverist status",
     "5 qualifying night credits / year",
@@ -135,6 +163,13 @@ export const chaseIhgPremier: CardTemplate = {
   issuer: "Chase",
   name: "IHG One Rewards Premier",
   annualFeeCents: 9900,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "hotels", multiplier: 26, notes: "IHG properties only (10x base + 10x IHG member + 6x Premier)" },
+    { category: "dining", multiplier: 5 },
+    { category: "flights", multiplier: 5 },
+    { category: "other", multiplier: 3 },
+  ],
   qualitativePerks: [
     "Platinum Elite status",
     "4th Reward Night free on 4+ night award stays",
@@ -170,6 +205,13 @@ export const chaseRitzCarlton: CardTemplate = {
   issuer: "Chase",
   name: "Ritz-Carlton",
   annualFeeCents: 45000,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "hotels", multiplier: 6, notes: "Marriott Bonvoy properties only" },
+    { category: "dining", multiplier: 3 },
+    { category: "flights", multiplier: 3, notes: "Airline purchases direct" },
+    { category: "other", multiplier: 2 },
+  ],
   qualitativePerks: [
     "Marriott Bonvoy Gold Elite status",
     "Priority Pass Select (cardholder + 2 guests; additional guests $27 each from 1/15/2026)",

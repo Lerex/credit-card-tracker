@@ -18,6 +18,17 @@ const TABS = [
     ),
   },
   {
+    href: "/recommend",
+    label: "Recommend",
+    match: (p: string) => p.startsWith("/recommend"),
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5">
+        <path d="M12 2l1.9 4.6L18.5 8l-4.6 1.9L12 14.5 10.1 9.9 5.5 8l4.6-1.4L12 2z" />
+        <path d="M19 14l.9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14z" />
+      </svg>
+    ),
+  },
+  {
     href: "/cards/new",
     label: "Add",
     match: (p: string) => p === "/cards/new",
@@ -49,7 +60,7 @@ export function BottomNav() {
       className="fixed bottom-0 inset-x-0 z-50 sm:hidden border-t border-[var(--border)] bg-[var(--surface-glass)] backdrop-blur-xl pb-[env(safe-area-inset-bottom)]"
       aria-label="Primary"
     >
-      <div className="grid grid-cols-3 h-16">
+      <div className="grid grid-cols-4 h-16">
         {TABS.map((tab) => {
           const active = tab.match(pathname ?? "");
           return (

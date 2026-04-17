@@ -5,6 +5,14 @@ export const bofaPremiumRewardsElite: CardTemplate = {
   issuer: "Other",
   name: "BofA Premium Rewards Elite",
   annualFeeCents: 55000,
+  pointsCurrency: "Cashback",
+  earningRates: [
+    { category: "dining", multiplier: 2 },
+    { category: "flights", multiplier: 2 },
+    { category: "hotels", multiplier: 2 },
+    { category: "transit", multiplier: 2, notes: "Part of travel category" },
+    { category: "other", multiplier: 1.5, notes: "Preferred Rewards Platinum Honors adds up to +75%" },
+  ],
   qualitativePerks: [
     "Priority Pass Select",
     "$100 Global Entry / TSA PreCheck credit (every 4 yr)",
@@ -40,6 +48,11 @@ export const bofaAlaskaAscent: CardTemplate = {
   issuer: "Other",
   name: "Atmos Ascent",
   annualFeeCents: 9500,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "flights", multiplier: 3, notes: "Alaska / Hawaiian airfare only" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: [
     "Free checked bag + preferred boarding for up to 6 companions (Alaska / Hawaiian)",
     "$99 Companion Fare each anniversary after $6k calendar-year spend",
@@ -57,6 +70,12 @@ export const bofaAlaskaSummit: CardTemplate = {
   issuer: "Other",
   name: "Atmos Summit",
   annualFeeCents: 39500,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "flights", multiplier: 4, notes: "Alaska / Hawaiian airfare only" },
+    { category: "dining", multiplier: 3 },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: [
     "Free checked bag + preferred boarding for up to 6 companions (Alaska / Hawaiian)",
     "2 Alaska Lounge passes per quarter (8 / yr)",

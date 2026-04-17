@@ -2,11 +2,19 @@
 
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { BenefitTemplate, BenefitUsage, ExportPayload, UserCard } from "./types";
+import type {
+  BenefitTemplate,
+  BenefitUsage,
+  CppSettings,
+  ExportPayload,
+  PointsCurrency,
+  UserCard,
+} from "./types";
 
 type State = {
   userCards: UserCard[];
   usages: BenefitUsage[];
+  cppOverrides: CppSettings;
   hydrated: boolean;
 };
 
@@ -23,6 +31,7 @@ type Actions = {
     benefitId: string,
     dateISO: string | null,
   ) => void;
+  setCppOverride: (currency: PointsCurrency, cpp: number | null) => void;
   exportJSON: () => ExportPayload;
   importJSON: (payload: ExportPayload) => void;
   clearAll: () => void;
@@ -38,6 +47,7 @@ export const useStore = create<State & Actions>()(
     (set, get) => ({
       userCards: [],
       usages: [],
+      cppOverrides: {},
       hydrated: false,
 
       addCard: (card) => {
@@ -94,22 +104,42 @@ export const useStore = create<State & Actions>()(
           }),
         })),
 
+      setCppOverride: (currency, cpp) =>
+        set((s) => {
+          const next = { ...s.cppOverrides };
+          if (cpp === null || cpp === undefined || !Number.isFinite(cpp)) {
+            delete next[currency];
+          } else {
+            next[currency] = cpp;
+          }
+          return { cppOverrides: next };
+        }),
+
       exportJSON: () => ({
-        version: 1,
+        version: 2,
         exportedAt: new Date().toISOString(),
         userCards: get().userCards,
         usages: get().usages,
+        cppOverrides: get().cppOverrides,
       }),
 
       importJSON: (payload) =>
-        set({ userCards: payload.userCards, usages: payload.usages }),
+        set({
+          userCards: payload.userCards,
+          usages: payload.usages,
+          cppOverrides: payload.cppOverrides ?? {},
+        }),
 
-      clearAll: () => set({ userCards: [], usages: [] }),
+      clearAll: () => set({ userCards: [], usages: [], cppOverrides: {} }),
     }),
     {
       name: "credit-card-tracker",
       onRehydrateStorage: () => (state) => {
-        if (state) state.hydrated = true;
+        if (state) {
+          // Backfill cppOverrides for existing v1 localStorage payloads.
+          if (!state.cppOverrides) state.cppOverrides = {};
+          state.hydrated = true;
+        }
       },
     },
   ),

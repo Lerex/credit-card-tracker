@@ -5,6 +5,14 @@ export const citiPremier: CardTemplate = {
   issuer: "Citi",
   name: "Strata Premier",
   annualFeeCents: 9500,
+  pointsCurrency: "TY",
+  earningRates: [
+    { category: "dining", multiplier: 3 },
+    { category: "groceries", multiplier: 3, notes: "Supermarkets (excl. Walmart / Target)" },
+    { category: "flights", multiplier: 3 },
+    { category: "hotels", multiplier: 3 },
+    { category: "other", multiplier: 1, notes: "+ 3x on gas / EV charging" },
+  ],
   qualitativePerks: ["3x on air travel, gas, restaurants, supermarkets, hotels"],
   benefits: [
     {
@@ -23,6 +31,15 @@ export const citiStrataElite: CardTemplate = {
   issuer: "Citi",
   name: "Strata Elite",
   annualFeeCents: 59500,
+  pointsCurrency: "TY",
+  earningRates: [
+    { category: "hotels", multiplier: 12, bookingMethod: "issuer-portal", notes: "Hotels / car rentals / attractions via Citi Travel" },
+    { category: "hotels", multiplier: 1.5, bookingMethod: "direct" },
+    { category: "flights", multiplier: 6, bookingMethod: "issuer-portal", notes: "Via Citi Travel" },
+    { category: "flights", multiplier: 1.5, bookingMethod: "direct" },
+    { category: "dining", multiplier: 3, notes: "6x Fri/Sat nights at restaurants" },
+    { category: "other", multiplier: 1.5 },
+  ],
   qualitativePerks: [
     "4 Admirals Club passes per year (cardholder only)",
     "Global Entry / TSA PreCheck credit ($120 every 4 yr)",
@@ -61,6 +78,12 @@ export const citiAAExecutive: CardTemplate = {
   issuer: "Citi",
   name: "AAdvantage Executive",
   annualFeeCents: 59500,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "flights", multiplier: 4, notes: "American Airlines flights only" },
+    { category: "hotels", multiplier: 10, bookingMethod: "issuer-portal", notes: "Via aa.com / Rocketmiles" },
+    { category: "other", multiplier: 1 },
+  ],
   qualitativePerks: [
     "Admirals Club access for cardholder + authorized users + guests",
     "First checked bag free (up to 8 companions)",
