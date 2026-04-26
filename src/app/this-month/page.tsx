@@ -3,7 +3,7 @@
 import { useStore } from "@/lib/store";
 import { getTemplate, getCardColor } from "@/lib/templates";
 import { benefitStatuses, formatUSD, type BenefitStatus } from "@/lib/value";
-import { currentWindow } from "@/lib/periods";
+import { currentWindow, daysUntil } from "@/lib/periods";
 import { BenefitRow } from "@/components/BenefitRow";
 import type { CardTemplate, UserCard } from "@/lib/types";
 
@@ -57,10 +57,7 @@ export default function ThisMonthPage() {
       .filter((r) => r.status.benefit.period.type === period)
       .sort((a, b) => a.status.daysLeft - b.status.daysLeft);
     const win = currentWindow({ type: period }, now.toISOString(), now);
-    const endsInDays = Math.max(
-      0,
-      Math.ceil((win.end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
-    );
+    const endsInDays = Math.max(0, daysUntil(win.end, now));
     return { period, title: PERIOD_TITLE[period], items, endsInDays };
   }).filter((g) => g.items.length > 0);
 
@@ -92,7 +89,7 @@ export default function ThisMonthPage() {
         <>
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5">
             <div className="text-[11px] uppercase tracking-wider text-[var(--muted)] font-medium">
-              Remaining this period
+              Remaining to use
             </div>
             <div className="mt-1 text-2xl sm:text-3xl font-mono font-light">
               {formatUSD(totalRemaining)}

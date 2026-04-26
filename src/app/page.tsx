@@ -30,11 +30,21 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-sm text-[var(--muted)] mt-1">
-          Your cards and benefit utilization at a glance.
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-semibold tracking-tight">Dashboard</h1>
+          <p className="text-sm text-[var(--muted)] mt-1">
+            Your cards and benefit utilization at a glance.
+          </p>
+        </div>
+        {userCards.length > 0 && (
+          <Link
+            href="/cards/new"
+            className="shrink-0 px-3 py-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] hover:bg-[var(--background)] hover:border-[var(--muted)] transition-colors duration-200"
+          >
+            + Add card
+          </Link>
+        )}
       </div>
 
       {userCards.length > 0 && (
