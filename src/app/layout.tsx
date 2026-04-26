@@ -39,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Link>
             <div className="hidden sm:flex items-center gap-5 text-sm">
               <Link href="/" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">Dashboard</Link>
+              <Link href="/this-month" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">This Month</Link>
               <Link href="/recommend" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">Recommend</Link>
               <Link href="/cards/new" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">Add Card</Link>
               <Link href="/settings" className="text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">Settings</Link>
