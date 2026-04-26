@@ -23,7 +23,9 @@ const PERIOD_TITLE: Record<ActivePeriod, string> = {
 };
 
 function isPending(status: BenefitStatus): boolean {
-  if (status.benefit.unit === "flat") return status.usagesInWindow.length === 0;
+  if (status.benefit.unit === "flat") {
+    return status.usagesInWindow.length === 0 && status.daysLeft > 0;
+  }
   return status.pct < 1;
 }
 
