@@ -4,7 +4,7 @@ A personal credit card benefit tracker for managing annual reimbursement credits
 
 ## Stack
 
-- **Next.js 15** (App Router) + **TypeScript** + **Tailwind v4**
+- **Next.js 16** (App Router) + **TypeScript** + **Tailwind v4**
 - **Zustand** with `persist` middleware for localStorage state
 - No backend — all data stays in the browser
 
