@@ -40,8 +40,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# claude code (local-only)
+# hermes / claude code (local-only)
+.hermes/
 .claude/settings.local.json
+.claude/worktrees/
 
 # cloudflare / opennext build output
 .open-next/
