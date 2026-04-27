@@ -130,7 +130,7 @@ export const chaseWorldOfHyatt: CardTemplate = {
   issuer: "Chase",
   name: "World of Hyatt",
   annualFeeCents: 9500,
-  pointsCurrency: "Other",
+  pointsCurrency: "WorldOfHyatt",
   earningRates: [
     { category: "hotels", multiplier: 4, notes: "Hyatt properties only" },
     { category: "dining", multiplier: 2 },
@@ -205,7 +205,7 @@ export const chaseRitzCarlton: CardTemplate = {
   issuer: "Chase",
   name: "Ritz-Carlton",
   annualFeeCents: 45000,
-  pointsCurrency: "Other",
+  pointsCurrency: "MarriottBonvoy",
   earningRates: [
     { category: "hotels", multiplier: 6, notes: "Marriott Bonvoy properties only" },
     { category: "dining", multiplier: 3 },

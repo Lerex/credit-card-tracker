@@ -8,6 +8,12 @@ export const DEFAULT_CPP: Record<PointsCurrency, number> = {
   TY: 1.7,
   CapOneMiles: 1.7,
   Cashback: 1.0,
+  HiltonHonors: 0.5,
+  MarriottBonvoy: 0.7,
+  WorldOfHyatt: 1.7,
+  AAdvantage: 1.4,
+  Atmos: 1.4,
+  Delta: 1.2,
   Other: 1.0,
 };
 
@@ -17,6 +23,12 @@ export const CURRENCY_LABEL: Record<PointsCurrency, string> = {
   TY: "Citi TY",
   CapOneMiles: "Cap One Miles",
   Cashback: "Cashback",
+  HiltonHonors: "Hilton Honors",
+  MarriottBonvoy: "Marriott Bonvoy",
+  WorldOfHyatt: "World of Hyatt",
+  AAdvantage: "AA AAdvantage",
+  Atmos: "Atmos Rewards",
+  Delta: "Delta SkyMiles",
   Other: "Other points",
 };
 

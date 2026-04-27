@@ -27,12 +27,18 @@ export type BenefitTemplate = {
 
 // Points "currency" — determines how `multiplier` converts to cents via CPP lookup.
 export type PointsCurrency =
-  | "MR"           // Amex Membership Rewards
-  | "UR"           // Chase Ultimate Rewards
-  | "TY"           // Citi ThankYou
-  | "CapOneMiles"  // Capital One Miles
-  | "Cashback"     // 1¢/point, earns cash
-  | "Other";       // hotel/airline points without a published valuation default
+  | "MR"             // Amex Membership Rewards
+  | "UR"             // Chase Ultimate Rewards
+  | "TY"             // Citi ThankYou
+  | "CapOneMiles"    // Capital One Miles
+  | "Cashback"       // 1¢/point, earns cash
+  | "HiltonHonors"   // Hilton Honors
+  | "MarriottBonvoy" // Marriott Bonvoy
+  | "WorldOfHyatt"   // World of Hyatt
+  | "AAdvantage"     // American Airlines AAdvantage
+  | "Atmos"          // Atmos Rewards (Alaska + Hawaiian, post-2025 rebrand)
+  | "Delta"          // Delta SkyMiles
+  | "Other";         // residual bucket for programs without a published default
 
 export type BookingMethod = "issuer-portal" | "direct" | "any";
 
