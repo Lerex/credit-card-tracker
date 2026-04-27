@@ -50,6 +50,16 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
     });
   };
 
+  const markRemainingUsed = () => {
+    if (status.remainingCents <= 0) return;
+    logUsage({
+      userCardId,
+      benefitId: status.benefit.id,
+      dateISO: new Date().toISOString(),
+      amountCents: status.remainingCents,
+    });
+  };
+
   return (
     <div className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 sm:p-5 transition-colors duration-200 hover:bg-[var(--card-hover)]">
       <div className="flex items-start justify-between gap-4">
@@ -114,7 +124,7 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
                     parsed.toISOString(),
                   );
                 }}
-                className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
+                className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 text-base sm:text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
               />
             </label>
           </div>
@@ -126,20 +136,20 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
               placeholder="Amount $"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              className="w-full sm:w-28 px-3 py-2 sm:px-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
+              className="w-full sm:w-28 px-3 py-2 sm:px-2 sm:py-1.5 text-base sm:text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
               autoFocus
             />
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
+              className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 text-base sm:text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
             />
             <input
               placeholder="Note (optional)"
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              className="w-full sm:flex-1 sm:min-w-32 px-3 py-2 sm:px-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
+              className="w-full sm:flex-1 sm:min-w-32 px-3 py-2 sm:px-2 sm:py-1.5 text-base sm:text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
             />
             <div className="flex gap-2 sm:contents">
               <button
@@ -157,12 +167,22 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
             </div>
           </div>
         ) : (
-          <button
-            onClick={() => setOpen(true)}
-            className="w-full sm:w-auto px-3 py-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] hover:bg-[var(--background)] hover:border-[var(--muted)] transition-colors duration-200"
-          >
-            + Log usage
-          </button>
+          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <button
+              onClick={() => setOpen(true)}
+              className="w-full sm:w-auto px-3 py-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] hover:bg-[var(--background)] hover:border-[var(--muted)] transition-colors duration-200"
+            >
+              + Log usage
+            </button>
+            {status.remainingCents > 0 && (
+              <button
+                onClick={markRemainingUsed}
+                className="w-full sm:w-auto px-3 py-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] hover:bg-[var(--background)] hover:border-[var(--muted)] transition-colors duration-200"
+              >
+                Mark fully used
+              </button>
+            )}
+          </div>
         )}
       </div>
     </div>
