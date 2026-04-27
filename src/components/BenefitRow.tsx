@@ -50,7 +50,8 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
     });
   };
 
-  const markFullyUsed = () => {
+  const markRemainingUsed = () => {
+    if (status.remainingCents <= 0) return;
     logUsage({
       userCardId,
       benefitId: status.benefit.id,
@@ -175,7 +176,7 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
             </button>
             {status.remainingCents > 0 && (
               <button
-                onClick={markFullyUsed}
+                onClick={markRemainingUsed}
                 className="w-full sm:w-auto px-3 py-2 sm:py-1.5 text-sm rounded-lg border border-[var(--border)] hover:bg-[var(--background)] hover:border-[var(--muted)] transition-colors duration-200"
               >
                 Mark fully used

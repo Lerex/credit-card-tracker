@@ -180,7 +180,7 @@ function CppRow({
             if (Math.abs(num - defaultCpp) < 1e-9) onChange(null);
             else onChange(num);
           }}
-          className="w-20 px-2 py-1.5 rounded-md border border-[var(--border)] bg-[var(--background)] font-mono text-sm text-right"
+          className="w-20 px-2 py-1.5 rounded-md border border-[var(--border)] bg-[var(--background)] font-mono text-base sm:text-sm text-right"
         />
         <span className="text-sm text-[var(--muted)]">¢</span>
         {isOverridden ? (
