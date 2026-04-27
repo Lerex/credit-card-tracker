@@ -112,19 +112,23 @@ export default function ThisMonthPage() {
                 </span>
               </div>
               <div className="grid gap-3">
-                {g.items.map(({ status, card, template }) => {
+                {g.items.map(({ status, card, template }, idx) => {
                   const colors = getCardColor(template);
                   const cardLabel = card.nickname
                     ? `${card.nickname} · ${template.name}`
                     : template.name;
+                  const prev = idx > 0 ? g.items[idx - 1] : null;
+                  const showLabel = !prev || prev.card.id !== card.id;
                   return (
                     <div key={`${card.id}:${status.benefit.id}`} className="space-y-1">
-                      <div
-                        className="text-xs font-medium px-1"
-                        style={{ color: colors.primary }}
-                      >
-                        {cardLabel}
-                      </div>
+                      {showLabel && (
+                        <div
+                          className="text-xs font-medium px-1"
+                          style={{ color: colors.primary }}
+                        >
+                          {cardLabel}
+                        </div>
+                      )}
                       <BenefitRow
                         userCardId={card.id}
                         status={status}
