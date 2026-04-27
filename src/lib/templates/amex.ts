@@ -34,28 +34,12 @@ export const amexPlatinum: CardTemplate = {
       notes: "$15/mo for Uber rides/Uber Eats in U.S. (+ $20 bonus in December)",
     },
     {
-      id: "uber-one",
-      name: "Uber One Credit",
-      amountCents: 1000,
-      period: { type: "monthly" },
-      category: "travel",
-      notes: "$10/mo — must pay for auto-renewing Uber One membership with the card",
-    },
-    {
       id: "digital-ent",
       name: "Digital Entertainment Credit",
       amountCents: 2500,
       period: { type: "monthly" },
       category: "streaming",
       notes: "$25/mo on Disney+, Hulu, ESPN+, NYT, WSJ, Peacock, Paramount+, YouTube Premium, YouTube TV",
-    },
-    {
-      id: "walmart-plus",
-      name: "Walmart+ Membership",
-      amountCents: 1295,
-      period: { type: "monthly" },
-      category: "shopping",
-      notes: "$12.95/mo statement credit (membership only, plus tax not covered)",
     },
     // Quarterly
     {

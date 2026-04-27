@@ -23,7 +23,7 @@ A personal credit card benefit tracker for managing annual reimbursement credits
 - All money is stored as **integer cents** (`amountCents`).
 - Card detail page groups benefits by `period.type` into sections (Monthly / Quarterly / Semi-annual / Annual). Don't show the `category` field in the UI — the user prefers period-based grouping.
 - Built-in templates are static code, edited directly in `src/lib/templates/*.ts`. When a card is refreshed by the issuer, update the template in place — existing user cards reference templates by `id` and pick up changes on next render.
-- Amex Platinum reflects the **2025 refresh**: $895 fee, 12 credits including new Resy / Lululemon / Oura / Uber One / Walmart+ alongside kept Uber Cash / Saks / Airline / Equinox / CLEAR+. Hotel and Digital Entertainment were enhanced.
+- Amex Platinum reflects the **2025 refresh**: $895 fee, 10 tracked credits including new Resy / Lululemon / Oura alongside kept Uber Cash / Saks / Airline / Equinox / CLEAR+. Hotel and Digital Entertainment were enhanced. Uber One and Walmart+ are part of the issuer refresh but intentionally not tracked here per user preference.
 
 ## Dev
 
