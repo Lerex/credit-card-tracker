@@ -73,6 +73,27 @@ export const citiStrataElite: CardTemplate = {
   ],
 };
 
+export const citiAAPlatinumSelect: CardTemplate = {
+  id: "citi-aa-platinum-select",
+  issuer: "Citi",
+  name: "AAdvantage Platinum Select",
+  annualFeeCents: 9900,
+  pointsCurrency: "Other",
+  earningRates: [
+    { category: "dining", multiplier: 2 },
+    { category: "flights", multiplier: 2, notes: "American Airlines purchases" },
+    { category: "other", multiplier: 1, notes: "+ 2x at gas stations" },
+  ],
+  qualitativePerks: [
+    "First checked bag free on AA flights (cardholder + up to 4 companions on same reservation)",
+    "Preferred boarding (Group 5) on AA flights",
+    "25% savings on inflight food and beverage purchases",
+    "Earn 1 Loyalty Point per AAdvantage mile from purchases",
+    "$125 American Airlines flight discount after $20,000 calendar-year spend + account renewal",
+  ],
+  benefits: [],
+};
+
 export const citiAAExecutive: CardTemplate = {
   id: "citi-aa-executive",
   issuer: "Citi",

@@ -143,7 +143,7 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 text-base sm:text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
+              className="w-auto self-start px-3 py-2 sm:px-2 sm:py-1.5 text-base sm:text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"
             />
             <input
               placeholder="Note (optional)"

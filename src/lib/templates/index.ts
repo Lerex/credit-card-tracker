@@ -15,7 +15,12 @@ import {
   chaseIhgPremier,
   chaseRitzCarlton,
 } from "./chase";
-import { citiPremier, citiStrataElite, citiAAExecutive } from "./citi";
+import {
+  citiPremier,
+  citiStrataElite,
+  citiAAPlatinumSelect,
+  citiAAExecutive,
+} from "./citi";
 import { capitalOneVentureX } from "./capital-one";
 import {
   bofaPremiumRewardsElite,
@@ -38,6 +43,7 @@ export const CARD_TEMPLATES: CardTemplate[] = [
   chaseRitzCarlton,
   citiPremier,
   citiStrataElite,
+  citiAAPlatinumSelect,
   citiAAExecutive,
   capitalOneVentureX,
   bofaPremiumRewardsElite,
