@@ -78,7 +78,7 @@ export const citiAAPlatinumSelect: CardTemplate = {
   issuer: "Citi",
   name: "AAdvantage Platinum Select",
   annualFeeCents: 9900,
-  pointsCurrency: "Other",
+  pointsCurrency: "AAdvantage",
   earningRates: [
     { category: "dining", multiplier: 2 },
     { category: "flights", multiplier: 2, notes: "American Airlines purchases" },
@@ -99,7 +99,7 @@ export const citiAAExecutive: CardTemplate = {
   issuer: "Citi",
   name: "AAdvantage Executive",
   annualFeeCents: 59500,
-  pointsCurrency: "Other",
+  pointsCurrency: "AAdvantage",
   earningRates: [
     { category: "flights", multiplier: 4, notes: "American Airlines flights only" },
     { category: "hotels", multiplier: 10, bookingMethod: "issuer-portal", notes: "Via aa.com / Rocketmiles" },

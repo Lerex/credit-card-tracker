@@ -48,7 +48,7 @@ export const bofaAlaskaAscent: CardTemplate = {
   issuer: "Other",
   name: "Atmos Ascent",
   annualFeeCents: 9500,
-  pointsCurrency: "Other",
+  pointsCurrency: "Atmos",
   earningRates: [
     { category: "flights", multiplier: 3, notes: "Alaska / Hawaiian airfare only" },
     { category: "other", multiplier: 1 },
@@ -70,7 +70,7 @@ export const bofaAlaskaSummit: CardTemplate = {
   issuer: "Other",
   name: "Atmos Summit",
   annualFeeCents: 39500,
-  pointsCurrency: "Other",
+  pointsCurrency: "Atmos",
   earningRates: [
     { category: "flights", multiplier: 4, notes: "Alaska / Hawaiian airfare only" },
     { category: "dining", multiplier: 3 },

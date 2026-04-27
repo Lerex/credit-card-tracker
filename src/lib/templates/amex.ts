@@ -201,7 +201,7 @@ export const amexHiltonAspire: CardTemplate = {
   issuer: "Amex",
   name: "Hilton Honors Aspire",
   annualFeeCents: 55000,
-  pointsCurrency: "Other",
+  pointsCurrency: "HiltonHonors",
   earningRates: [
     { category: "hotels", multiplier: 14, notes: "Hilton properties only — not chain-agnostic" },
     { category: "dining", multiplier: 7, notes: "US restaurants" },
@@ -264,7 +264,7 @@ export const amexMarriottBrilliant: CardTemplate = {
   issuer: "Amex",
   name: "Marriott Bonvoy Brilliant",
   annualFeeCents: 65000,
-  pointsCurrency: "Other",
+  pointsCurrency: "MarriottBonvoy",
   earningRates: [
     { category: "hotels", multiplier: 6, notes: "Marriott Bonvoy properties only" },
     { category: "dining", multiplier: 3, notes: "Restaurants worldwide" },
@@ -303,7 +303,7 @@ export const amexDeltaReserve: CardTemplate = {
   issuer: "Amex",
   name: "Delta SkyMiles Reserve",
   annualFeeCents: 65000,
-  pointsCurrency: "Other",
+  pointsCurrency: "Delta",
   earningRates: [
     { category: "flights", multiplier: 3, notes: "Delta flights only" },
     { category: "other", multiplier: 1 },

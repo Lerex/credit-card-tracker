@@ -11,6 +11,12 @@ const CPP_CURRENCIES: PointsCurrency[] = [
   "TY",
   "CapOneMiles",
   "Cashback",
+  "HiltonHonors",
+  "MarriottBonvoy",
+  "WorldOfHyatt",
+  "AAdvantage",
+  "Atmos",
+  "Delta",
   "Other",
 ];
 
