@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useStore } from "@/lib/store";
+import { parseLocalDate } from "@/lib/dates";
 import { getTemplate, getCardColor } from "@/lib/templates";
 import { benefitStatuses, cardAnnualValue, formatUSD } from "@/lib/value";
 import type { UserCard } from "@/lib/types";
@@ -79,7 +80,7 @@ export function CardSummary({ card }: { card: UserCard }) {
                   </span>
                   <span className="text-[var(--muted)] shrink-0">
                     {used
-                      ? `used ${new Date(used.dateISO).toLocaleDateString()}`
+                      ? `used ${parseLocalDate(used.dateISO).toLocaleDateString()}`
                       : `${s.daysLeft}d left`}
                   </span>
                 </li>
