@@ -39,7 +39,7 @@ export function ProgressBar({ pct, tone, issuerColor, issuerColorLight }: Props)
         ref={barRef}
         className={`h-full rounded-full transition-[width] duration-700 ease-out ${useGradient ? "" : toneColor}`}
         style={{
-          width: `${clamped * 100}%`,
+          width: "0%",
           ...(useGradient ? { background: `linear-gradient(90deg, ${issuerColor}, ${issuerColorLight})` } : {}),
         }}
       />

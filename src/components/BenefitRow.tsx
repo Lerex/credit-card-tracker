@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useStore } from "@/lib/store";
+import { parseLocalDate, toLocalDateString } from "@/lib/dates";
 import { formatUSD, type BenefitStatus } from "@/lib/value";
 import { ProgressBar } from "./ProgressBar";
 
@@ -9,7 +10,7 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [date, setDate] = useState(toLocalDateString());
   const logUsage = useStore((s) => s.logUsage);
   const removeUsage = useStore((s) => s.removeUsage);
   const setBenefitExpiration = useStore((s) => s.setBenefitExpiration);
@@ -19,12 +20,6 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
 
   const isFlat = status.benefit.unit === "flat";
   const flatUsage = isFlat ? status.usagesInWindow[0] : undefined;
-  const toLocalDateInput = (d: Date) => {
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return `${y}-${m}-${day}`;
-  };
 
   const submit = () => {
     const cents = Math.round(Number(amount) * 100);
@@ -32,7 +27,7 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
     logUsage({
       userCardId,
       benefitId: status.benefit.id,
-      dateISO: new Date(date).toISOString(),
+      dateISO: date,
       amountCents: cents,
       note: note || undefined,
     });
@@ -45,7 +40,7 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
     logUsage({
       userCardId,
       benefitId: status.benefit.id,
-      dateISO: new Date().toISOString(),
+      dateISO: toLocalDateString(),
       amountCents: status.benefit.amountCents,
     });
   };
@@ -55,7 +50,7 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
     logUsage({
       userCardId,
       benefitId: status.benefit.id,
-      dateISO: new Date().toISOString(),
+      dateISO: toLocalDateString(),
       amountCents: status.remainingCents,
     });
   };
@@ -102,26 +97,26 @@ export function BenefitRow({ userCardId, status, issuerColor, issuerColorLight }
                 className="h-5 w-5 sm:h-4 sm:w-4"
               />
               {flatUsage
-                ? `Used on ${new Date(flatUsage.dateISO).toLocaleDateString()}`
+                ? `Used on ${parseLocalDate(flatUsage.dateISO).toLocaleDateString()}`
                 : "Mark as used"}
             </label>
             <label className="flex items-center gap-2 text-xs text-[var(--muted)]">
               Expires
               <input
                 type="date"
-                value={toLocalDateInput(status.windowEnd)}
+                value={toLocalDateString(status.windowEnd)}
                 onChange={(e) => {
                   const v = e.target.value;
                   if (!v) {
                     setBenefitExpiration(userCardId, status.benefit.id, null);
                     return;
                   }
-                  const parsed = new Date(v + "T00:00:00");
+                  const parsed = parseLocalDate(v);
                   if (!Number.isFinite(parsed.getTime())) return;
                   setBenefitExpiration(
                     userCardId,
                     status.benefit.id,
-                    parsed.toISOString(),
+                    v,
                   );
                 }}
                 className="w-full sm:w-auto px-3 py-2 sm:px-2 sm:py-1.5 text-base sm:text-sm rounded-lg border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/30 focus:border-[var(--accent)] transition-colors duration-200"

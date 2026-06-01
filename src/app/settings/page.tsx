@@ -2,8 +2,10 @@
 
 import { useRef, useState } from "react";
 import { useStore } from "@/lib/store";
+import { toLocalDateString } from "@/lib/dates";
 import { CURRENCY_LABEL, DEFAULT_CPP } from "@/lib/cpp";
-import type { ExportPayload, PointsCurrency } from "@/lib/types";
+import { ExportPayloadSchema } from "@/lib/schemas";
+import type { PointsCurrency } from "@/lib/types";
 
 const CPP_CURRENCIES: PointsCurrency[] = [
   "MR",
@@ -37,7 +39,7 @@ export default function SettingsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `benefit-tracker-${new Date().toISOString().slice(0, 10)}.json`;
+    a.download = `benefit-tracker-${toLocalDateString()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -47,15 +49,12 @@ export default function SettingsPage() {
     if (!file) return;
     try {
       const text = await file.text();
-      const data = JSON.parse(text) as ExportPayload;
-      if (
-        (data.version !== 1 && data.version !== 2) ||
-        !Array.isArray(data.userCards) ||
-        !Array.isArray(data.usages)
-      ) {
-        alert("Invalid file format.");
+      const result = ExportPayloadSchema.safeParse(JSON.parse(text));
+      if (!result.success) {
+        alert("Invalid file: " + result.error.issues[0]?.message);
         return;
       }
+      const data = result.data;
       if (
         confirm(
           `Import ${data.userCards.length} cards and ${data.usages.length} usage records? This replaces existing data.`,

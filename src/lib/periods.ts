@@ -1,3 +1,4 @@
+import { parseLocalDate } from "./dates";
 import type { BenefitPeriod, BenefitUsage } from "./types";
 
 export type Window = { start: Date; end: Date };
@@ -28,7 +29,7 @@ export function currentWindow(
     }
 
     case "cardmember-year": {
-      const opened = new Date(openedAt);
+      const opened = parseLocalDate(openedAt);
       const anchorMonth = opened.getMonth();
       const anchorDay = opened.getDate();
       let start = new Date(y, anchorMonth, anchorDay);
@@ -53,7 +54,7 @@ export function usageInWindow(
   for (const u of usages) {
     if (u.userCardId !== userCardId) continue;
     if (u.benefitId !== benefitId) continue;
-    const d = new Date(u.dateISO);
+    const d = parseLocalDate(u.dateISO);
     if (d >= win.start && d < win.end) total += u.amountCents;
   }
   return total;

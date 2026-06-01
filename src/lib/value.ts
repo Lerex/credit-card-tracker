@@ -1,3 +1,4 @@
+import { parseLocalDate } from "./dates";
 import { currentWindow } from "./periods";
 import type {
   BenefitTemplate,
@@ -36,7 +37,7 @@ export function benefitStatuses(
     const usagesInWindow = usages.filter((u) => {
       if (u.userCardId !== card.id) return false;
       if (u.benefitId !== b.id) return false;
-      const d = new Date(u.dateISO);
+      const d = parseLocalDate(u.dateISO);
       return d >= win.start && d < win.end;
     });
     const usedCents = usagesInWindow.reduce((sum, u) => sum + u.amountCents, 0);
@@ -44,7 +45,7 @@ export function benefitStatuses(
     const pct = b.amountCents > 0 ? usedCents / b.amountCents : 0;
     const override =
       b.unit === "flat" ? card.benefitExpirations?.[b.id] : undefined;
-    const effectiveEnd = override ? new Date(override) : win.end;
+    const effectiveEnd = override ? parseLocalDate(override) : win.end;
     const daysLeft = Math.max(
       0,
       Math.ceil((effectiveEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
@@ -80,7 +81,7 @@ export function cardAnnualValue(
   let used = 0;
   for (const u of usages) {
     if (u.userCardId !== card.id) continue;
-    const d = new Date(u.dateISO);
+    const d = parseLocalDate(u.dateISO);
     if (d >= yearStart && d < yearEnd) used += u.amountCents;
   }
   const net = used - template.annualFeeCents;

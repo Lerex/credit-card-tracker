@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { notFound, useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useStore } from "@/lib/store";
+import { parseLocalDate } from "@/lib/dates";
 import { getTemplate, getCardColor } from "@/lib/templates";
 import { benefitStatuses, cardAnnualValue, formatUSD } from "@/lib/value";
 import { BenefitRow } from "@/components/BenefitRow";
@@ -18,9 +19,20 @@ export default function CardDetailPage() {
   const removeUsage = useStore((s) => s.removeUsage);
 
   if (!hydrated) return <div className="text-sm text-[var(--muted)]">Loading…</div>;
-  if (!card) return notFound();
-  const template = getTemplate(card.templateId);
-  if (!template) return notFound();
+  if (!card || !getTemplate(card.templateId)) {
+    return (
+      <div className="space-y-4">
+        <Link href="/" className="inline-flex items-center gap-1 text-sm text-[var(--muted)] hover:text-[var(--foreground)] transition-colors duration-200">
+          <span aria-hidden="true">&larr;</span> Dashboard
+        </Link>
+        <div className="rounded-2xl border border-dashed border-[var(--border)] p-16 text-center">
+          <p className="text-[var(--muted)] text-lg">Card not found</p>
+          <p className="text-sm text-[var(--muted)] mt-2">It may have been deleted.</p>
+        </div>
+      </div>
+    );
+  }
+  const template = getTemplate(card.templateId)!;
 
   const colors = getCardColor(template);
   const statuses = benefitStatuses(card, template, usages);
@@ -74,7 +86,7 @@ export default function CardDetailPage() {
               {card.nickname ? `${card.nickname} · ${template.name}` : template.name}
             </h1>
             <div className="text-sm text-[var(--muted)] mt-1">
-              Opened {new Date(card.openedAt).toLocaleDateString()} · Annual fee{" "}
+              Opened {parseLocalDate(card.openedAt).toLocaleDateString()} · Annual fee{" "}
               {formatUSD(template.annualFeeCents)} in{" "}
               {new Date(2000, card.annualFeeChargedMonth - 1, 1).toLocaleString(undefined, {
                 month: "long",
@@ -156,7 +168,7 @@ export default function CardDetailPage() {
                   return (
                     <tr key={u.id} className="border-t border-[var(--border)]">
                       <td className="px-3 py-2 font-mono">
-                        {new Date(u.dateISO).toLocaleDateString()}
+                        {parseLocalDate(u.dateISO).toLocaleDateString()}
                       </td>
                       <td className="px-3 py-2">{b?.name ?? u.benefitId}</td>
                       <td className="px-3 py-2 text-right font-mono">
@@ -193,7 +205,7 @@ export default function CardDetailPage() {
                         {b?.name ?? u.benefitId}
                       </div>
                       <div className="text-xs text-[var(--muted)] font-mono mt-0.5">
-                        {new Date(u.dateISO).toLocaleDateString()}
+                        {parseLocalDate(u.dateISO).toLocaleDateString()}
                       </div>
                     </div>
                     <div className="font-mono text-sm shrink-0">

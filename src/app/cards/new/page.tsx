@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useStore } from "@/lib/store";
+import { toLocalDateString } from "@/lib/dates";
 import { CARD_TEMPLATES, ISSUER_COLORS } from "@/lib/templates";
 import { formatUSD } from "@/lib/value";
 
@@ -11,7 +12,7 @@ export default function NewCardPage() {
   const addCard = useStore((s) => s.addCard);
   const [templateId, setTemplateId] = useState<string>("");
   const [nickname, setNickname] = useState("");
-  const [openedAt, setOpenedAt] = useState(new Date().toISOString().slice(0, 10));
+  const [openedAt, setOpenedAt] = useState(toLocalDateString());
   const [chargedMonth, setChargedMonth] = useState<number>(
     new Date().getMonth() + 1,
   );
@@ -21,7 +22,7 @@ export default function NewCardPage() {
     const id = addCard({
       templateId,
       nickname: nickname || undefined,
-      openedAt: new Date(openedAt).toISOString(),
+      openedAt,
       annualFeeChargedMonth: chargedMonth,
     });
     router.push(`/cards/${id}`);

@@ -1,5 +1,3 @@
-"use client";
-
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type {
@@ -134,10 +132,21 @@ export const useStore = create<State & Actions>()(
     }),
     {
       name: "credit-card-tracker",
+      version: 2,
+      migrate: (persisted, version) => {
+        const state = persisted as Record<string, unknown>;
+        if (version < 2) {
+          if (!state.cppOverrides) state.cppOverrides = {};
+        }
+        return state as State & Actions;
+      },
+      partialize: (state) => ({
+        userCards: state.userCards,
+        usages: state.usages,
+        cppOverrides: state.cppOverrides,
+      }),
       onRehydrateStorage: () => (state) => {
         if (state) {
-          // Backfill cppOverrides for existing v1 localStorage payloads.
-          if (!state.cppOverrides) state.cppOverrides = {};
           state.hydrated = true;
         }
       },
